@@ -1,0 +1,44 @@
+{
+    "name": "url-shortener-backend",
+    "version": "1.0.0",
+    "description": "Backend API for B1Shortener SaaS platform",
+    "author": "The B1 Project Team",
+    "private": true,
+    "license": "MIT",
+    "type": "commonjs",
+    "scripts": {
+        "build": "nest build",
+        "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+        "start": "nest start",
+        "start:dev": "export NODE_ENV=\"development\";nest start --watch",
+        "start:debug": "export NODE_ENV=\"debug\";nest start --debug --watch",
+        "start:prod": "export NODE_ENV=\"production\";node dist/main",
+        "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:cov": "jest --coverage",
+        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+        "test:e2e": "jest --config ./test/jest-e2e.json",
+        "typeorm": "typeorm-ts-node-commonjs",
+        "migration:generate": "npm run typeorm -- migration:generate",
+        "migration:run": "npm run typeorm -- migration:run",
+        "migration:revert": "npm run typeorm -- migration:revert"
+    },
+    "dependencies": {
+        "@nestjs/common": "^11.1.11",
+        "@nestjs/config": "^4.0.2",
+        "@nestjs/core": "^11.1.11",
+        "@nestjs/jwt": "^11.0.2",
+        "@nestjs/platform-express": "^11.1.1",
+        "@nestjs/typeorm": "^11.0.0",
+        "bcrypt": "^6.0.0",
+        "pg": "^8.16.3",
+        "typeorm": "^0.3.28"
+    },
+    "devDependencies": {
+        "@nestjs/cli": "^11.0.14",
+        "@nestjs/testing": "^11.1.1",
+        "@types/bcrypt": "^6.0.0",
+        "@types/express": "^5.0.6"
+    }
+}

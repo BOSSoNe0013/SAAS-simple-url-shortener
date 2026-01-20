@@ -1,0 +1,34 @@
+{
+    "name": "url-shortener",
+    "version": "1.0.0",
+    "description": "B1Shortener SaaS platform",
+    "author": "The B1 Project Team",
+    "workspaces": [
+        "src/app"
+    ],
+    "scripts": {
+        "dev": "concurrently \"npm run dev:backend\"",
+        "dev:backend": "cd src/app && npm run start:dev",
+        "build": "npm run build:backend",
+        "build:backend": "cd src/app && npm run build",
+        "test": "npm run text:backend",
+        "test:backend": "cd src/app && npm run test",
+        "lint": "eslint . --ext .ts",
+        "format": "prettier --write ."
+    },
+    "dependencies": {
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.14.3"
+    },
+    "devDependencies": {
+        "@nestjs/testing": "^11.1.12",
+        "@types/jest": "^30.0.0",
+        "@types/node": "^25.0.3",
+        "concurrently": "^9.2.1",
+        "eslint": "^9.39.2",
+        "jest": "^30.2.0",
+        "prettier": "^3.7.4",
+        "ts-jest": "^29.4.6",
+        "typescript": "^5.9.3"
+    }
+}
