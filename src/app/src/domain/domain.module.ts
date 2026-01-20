@@ -5,10 +5,10 @@ import { User } from './entities/user.entity';
 import { Click } from './entities/click.entity';
 import { ShortUrlService } from './services/short-url.service';
 import { AuthService } from './services/auth.service';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { AppConfigService } from 'src/config/services/config.service';
 import { DatabaseFactory } from './factories/database.factory';
+import { AppConfigModule } from 'src/config/config.module';
 
 @Module({
   imports: [
@@ -18,21 +18,23 @@ import { DatabaseFactory } from './factories/database.factory';
     }) as any,
     TypeOrmModule.forFeature([User, ShortUrl, Click]) as any,
     JwtModule.registerAsync({
-      imports: [ConfigModule.forRoot()],
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>("JWT_SECRET", "default_key"),
+      imports: [AppConfigModule],
+      useFactory: async (config: AppConfigService) => ({
+        secret: config.jwtSecret,
         signOptions: { expiresIn: "4h" },
       }),
-      inject: [ConfigService],
+      inject: [AppConfigService],
     }) as any,
   ],
   providers: [
     ShortUrlService, 
     AuthService,
+    JwtService,
   ],
   exports: [
     ShortUrlService, 
-    AuthService
+    AuthService,
+    JwtService,
   ]
 })
 export class DomainModule {}

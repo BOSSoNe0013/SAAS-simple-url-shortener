@@ -17,17 +17,18 @@ B1Shortener is a self‑hostable URL shortener SaaS.  It keeps a single administ
 url_shortener/
 ├─ src/
 │  ├─ app/
-│  │  ├─ modules/
-│  │  │  ├─ auth/          – Auth controller, service, guard, DTOs.
-│  │  │  ├─ admin/          – Admin dashboard and pages.
-│  │  │  ├─ short-url/      – CRUD for short URLs.
-│  │  │  └─ analytics/     – Track clicks.
-│  │  ├─ common/
-│  │  │  ├─ exceptions/    – AppError & helpers.
-│  │  │  ├─ pipes/        – Validation pipes.
-│  │  │  ├─ models/        – TypeORM entities.
-│  │  │  └─ utils/         – Global utilities.
-│  │  └─ main.ts           – Application bootstrap.
+│  |  └─ src/
+│  │     ├─ modules/
+│  │     │  ├─ auth/          – Auth controller, service, guard, DTOs.
+│  │     │  ├─ admin/          – Admin dashboard and pages.
+│  │     │  ├─ short-url/      – CRUD for short URLs.
+│  │     │  └─ analytics/     – Track clicks.
+│  │     ├─ common/
+│  │     │  ├─ exceptions/    – AppError & helpers.
+│  │     │  ├─ pipes/        – Validation pipes.
+│  │     │  ├─ models/        – TypeORM entities.
+│  │     │  └─ utils/         – Global utilities.
+│  │     └─ main.ts           – Application bootstrap.
 │  └─ front/
 │     └─ src/
 │        ├─ ui/            – NuxtUI components.
