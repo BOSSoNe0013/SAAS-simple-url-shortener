@@ -19,33 +19,49 @@ Add a fully‑functional NestJS backend that:
 5. **Auth** – JWT middleware and guard.
 6. **Database** – TypeORM migrations for the three tables.
 7. **Testing** – Unit and integration tests using Jest.
-8. **Docker** – Updated docker‑compose to expose the backend.
+8. **Docker** – Update docker/backend.Dockerfile and docker‑compose to expose the backend.
 
 ## High‑Level Design
 ```
 src/
- ├─ domain/
- │   ├─ entities/
- │   │   ├─ user.entity.ts
- │   │   ├─ short-url.entity.ts
- │   │   └─ click.entity.ts
- │   ├─ dto/
- │   │   ├─ create-short-url.dto.ts
- │   │   └─ update-short-url.dto.ts
- │   ├─ services/
- │   │   ├─ auth.service.ts
- │   │   ├─ short-url.service.ts
- │   │   └─ click.service.ts
- │   ├─ controllers/
- │   │   ├─ admin.controller.ts
- │   │   └─ redirect.controller.ts
- │   ├─ guards/
- │   │   └─ jwt.guard.ts
- │   └─ utils/
- │       └─ code-generator.ts
- ├─ migrations/
- │   └─ 2024-XX-XX-create-tables.ts
- └─ main.ts
+│  ├─ app/
+│  |  ├─ src/
+│  │  │  ├─ config/
+│  │  │  │  ├─ services/
+│  │  │  │  │  └─ config.service.ts
+│  │  │  │  └─ config.module.ts
+│  │  │  ├─ domain/
+│  │  │  │  ├─ controllers/
+│  │  │  │  │   ├─ admin.controller.ts
+│  │  │  │  │   └─ redirect.controller.ts
+│  │  │  │  ├─ dto/
+│  │  │  │  │   ├─ create-short-url.dto.ts
+│  │  │  │  │   └─ update-short-url.dto.ts
+│  │  │  │  ├─ entities/
+│  │  │  │  │   ├─ user.entity.ts
+│  │  │  │  │   ├─ short-url.entity.ts
+│  │  │  │  │   └─ click.entity.ts
+│  │  │  │  ├─ factories/
+│  │  │  │  │   └─ database.factory.ts
+│  │  │  │  ├─ guards/
+│  │  │  │  │   └─ jwt.guard.ts
+│  │  │  │  ├─ services/
+│  │  │  │  │   ├─ auth.service.ts
+│  │  │  │  │   ├─ short-url.service.ts
+│  │  │  │  │   └─ click.service.ts
+│  │  │  │  ├─ utils/
+│  │  │  │  │   └─ code-generator.ts
+│  │  │  │  └─ domain.module.ts
+│  │  │  ├─ app.module.ts
+│  │  │  └─ main.ts
+│  │  ├─ package.json
+│  │  └─ tsconfig.json
+│  ├─ db/
+│  │  └─ migration/
+│  │      └─ YYYYMMdd-create-tables.ts
+│  └─ front/
+├─ package.json
+└─ tsconfig.json
 ```
 
 ## Implementation Steps

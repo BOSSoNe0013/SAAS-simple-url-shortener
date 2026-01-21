@@ -1,5 +1,4 @@
-import { IsUrl, IsString, Length, IsOptional, IsDate } from 'class-validator';
-
+import { IsUrl, IsString, IsOptional, IsDate } from 'class-validator';
 export class CreateShortUrlDto {
   @IsUrl()
   targetUrl!: string;

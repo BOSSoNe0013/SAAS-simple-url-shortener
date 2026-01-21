@@ -15,28 +15,50 @@ B1Shortener is a self‑hostable URL shortener SaaS.  It keeps a single administ
 ## Project Structure
 ```
 url_shortener/
+├─ docker
+│  ├─ backend.Dockerfile
+│  └─ frontend.Dockerfile
 ├─ src/
 │  ├─ app/
-│  |  └─ src/
-│  │     ├─ modules/
-│  │     │  ├─ auth/          – Auth controller, service, guard, DTOs.
-│  │     │  ├─ admin/          – Admin dashboard and pages.
-│  │     │  ├─ short-url/      – CRUD for short URLs.
-│  │     │  └─ analytics/     – Track clicks.
-│  │     ├─ common/
-│  │     │  ├─ exceptions/    – AppError & helpers.
-│  │     │  ├─ pipes/        – Validation pipes.
-│  │     │  ├─ models/        – TypeORM entities.
-│  │     │  └─ utils/         – Global utilities.
-│  │     └─ main.ts           – Application bootstrap.
+│  │   ├── src
+│  │   │   ├── app.module.ts
+│  │   │   ├── config/                           - Configuration files (environments, etc.)
+│  │   │   │   ├── config.module.ts
+│  │   │   │   └── services/
+│  │   │   │       └── config.service.ts
+│  │   │   ├── domain/                           - Domain files (controllers, entities, DTOs, services, etc.)
+│  │   │   │   ├── controllers/                  – Controllers.
+│  │   │   │   │   ├── admin.controller.ts
+│  │   │   │   │   └── redirect.controller.ts
+│  │   │   │   ├── domain.module.ts
+│  │   │   │   ├── dto/                          – DTOs.
+│  │   │   │   │   ├── create-short-url.dto.ts
+│  │   │   │   │   └── update-short-url.dto.ts
+│  │   │   │   ├── entities/                     – Entities.
+│  │   │   │   │   ├── click.entity.ts
+│  │   │   │   │   ├── short-url.entity.ts
+│  │   │   │   │   └── user.entity.ts
+│  │   │   │   ├── factories/                    – Factories.
+│  │   │   │   │   └── database.factory.ts
+│  │   │   │   ├── guards/                       – Guards.
+│  │   │   │   │   └── jwt.guard.ts
+│  │   │   │   ├── services/                     – Services.
+│  │   │   │   │   ├── auth.service.ts
+│  │   │   │   │   └── short-url.service.ts
+│  │   │   │   └── utils/                        – Utilities.
+│  │   │   │       └── code-generator.ts
+│  │   │   └── main.ts                          – Application bootstrap.
+│  │   └── tsconfig.json
+│  ├── db
+│  │   └── migration/
+│  │       └── 20260120-create-tables.ts│  |  └─ src/
 │  └─ front/
 │     └─ src/
-│        ├─ ui/            – NuxtUI components.
-│        ├─ pages/          – Vue pages.
-│        ├─ store/          – Vuex / Pinia (if used).
-│        └─ main.tsx        – Vue bootstrap.
+│        ├─ ui/                                 – NuxtUI components.
+│        ├─ pages/                              – Vue pages.
+│        ├─ store/                              – Vuex / Pinia (if used).
+│        └─ main.tsx                            – Vue bootstrap.
 ├─ docker-compose.yml
-├─ Dockerfile
 ├─ package.json
 └─ README.md
 ```

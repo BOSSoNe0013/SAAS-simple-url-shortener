@@ -1,14 +1,15 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get, Delete, Param, Req } from '@nestjs/common';
 import { ShortUrlService } from '../services/short-url.service';
-import { CreateShortUrlDto } from '../dto/create-short-url.dto';
 import { JwtGuard } from '../guards/jwt.guard';
+import { CreateShortUrlDto } from '../dto/create-short-url.dto';
+import { Request } from 'express';
 
 @Controller('admin/short-urls')
 @UseGuards(JwtGuard)
 export class AdminController {
   constructor(private readonly svc: ShortUrlService) {}
   @Post()
-  async create(@Body() dto: CreateShortUrlDto) {
+  async create(@Body() dto: CreateShortUrlDto, @Req() req: Request) {
     return this.svc.create(dto);
   }
   @Get()

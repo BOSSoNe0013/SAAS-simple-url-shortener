@@ -9,9 +9,8 @@ export class DatabaseFactory implements TypeOrmOptionsFactory {
   constructor(
     private readonly config: AppConfigService
   ) {
-    this.logger.log(
-      `Configuring database connection...${this.config.database.name}`,
-    );
+    this.logger.log(`Configuring database connection...`);
+    this.logger.log(`Database: ${this.config.database.name}`);
     this.logger.log(`Database user: ${this.config.database.username}`);
     this.logger.log(`Env: ${this.config.env}`);
   }

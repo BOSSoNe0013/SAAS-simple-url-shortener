@@ -6,12 +6,13 @@ import { Click } from './entities/click.entity';
 import { ShortUrlService } from './services/short-url.service';
 import { AuthService } from './services/auth.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
-import { AppConfigService } from 'src/config/services/config.service';
+import { AppConfigService } from '../config/services/config.service';
 import { DatabaseFactory } from './factories/database.factory';
-import { AppConfigModule } from 'src/config/config.module';
+import { AppConfigModule } from '../config/config.module';
 
 @Module({
   imports: [
+    AppConfigModule,
     TypeOrmModule.forRootAsync({
       extraProviders: [AppConfigService],
       useClass: DatabaseFactory,
