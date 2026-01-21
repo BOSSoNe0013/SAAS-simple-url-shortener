@@ -32,6 +32,7 @@ export class RedirectController {
       this.logger.warn(`Rate limit exceeded for IP ${ip}`);
       return res.sendStatus(HttpStatus.TOO_MANY_REQUESTS);
     }
+    await this.svc.recordClick(url.id, ip);
     return res.redirect(url.targetUrl);
   }
 }

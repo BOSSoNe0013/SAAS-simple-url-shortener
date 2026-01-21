@@ -3,6 +3,7 @@ import { Repository } from "typeorm";
 import { ShortUrl } from "../entities/short-url.entity";
 import { CreateShortUrlDto } from "../dto/create-short-url.dto";
 import { UpdateShortUrlDto } from "../dto/update-short-url.dto";
+import { Click } from "../entities/click.entity";
 import { generateCode } from "../utils/code-generator";
 import { InjectRepository } from "@nestjs/typeorm";
 
@@ -18,11 +19,15 @@ export class ShortUrlService {
 
   constructor(
     @InjectRepository(ShortUrl)
-    private readonly repo: Repository<ShortUrl>,
+    private readonly shortUrlRepository: Repository<ShortUrl>,
+    private readonly clickRepository: Repository<Click>,
   ) {}
 
   private refillBucket(ip: string) {
-    const bucket = this.rateBuckets.get(ip) || { tokens: this.RATE_LIMIT_CAPACITY, lastRefill: Date.now() };
+    const bucket = this.rateBuckets.get(ip) || {
+      tokens: this.RATE_LIMIT_CAPACITY,
+      lastRefill: Date.now(),
+    };
     const now = Date.now();
     const elapsed = now - bucket.lastRefill;
     if (elapsed > this.RATE_LIMIT_WINDOW_MS) {
@@ -42,27 +47,33 @@ export class ShortUrlService {
     return false;
   }
 
+  async recordClick(shortUrlId: number, ipAddress: string): Promise<void> {
+    const click = this.clickRepository.create({ shortUrlId, ipAddress });
+    await this.clickRepository.save(click);
+    await this.shortUrlRepository.increment({ id: shortUrlId }, "clicks", 1);
+  }
+
   async create(dto: CreateShortUrlDto): Promise<ShortUrl> {
     let code: string;
     let exists: ShortUrl | undefined;
     do {
       code = await generateCode();
-      exists = await this.repo.findOne({ where: { code } });
+      exists = await this.shortUrlRepository.findOne({ where: { code } });
     } while (exists);
-    const url = this.repo.create({
+    const url = this.shortUrlRepository.create({
       code,
       targetUrl: dto.targetUrl,
       expiresAt: dto.expiresAt,
     });
-    return this.repo.save(url);
+    return this.shortUrlRepository.save(url);
   }
 
   async findAll(): Promise<ShortUrl[]> {
-    return this.repo.find({ relations: ["clickRecords"] });
+    return this.shortUrlRepository.find({ relations: ["clickRecords"] });
   }
 
   async findOne(code: string): Promise<ShortUrl | null> {
-    return this.repo.findOne({ where: { code } });
+    return this.shortUrlRepository.findOne({ where: { code } });
   }
 
   async update(
@@ -72,11 +83,11 @@ export class ShortUrlService {
     const url = await this.findOne(code);
     if (!url) return undefined;
     Object.assign(url, dto);
-    return this.repo.save(url);
+    return this.shortUrlRepository.save(url);
   }
 
   async delete(code: string): Promise<boolean> {
-    const res = await this.repo.delete({ code });
+    const res = await this.shortUrlRepository.delete({ code });
     return res.affected ? !!res.affected : false;
   }
 }

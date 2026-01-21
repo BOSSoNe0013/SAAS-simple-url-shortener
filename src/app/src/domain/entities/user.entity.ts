@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
 export class User {
@@ -8,7 +8,7 @@ export class User {
   @Column({ unique: true })
   username!: string;
 
-  @Column()
+  @Column({ name: "password_hash" })
   passwordHash!: string;
 
   @Column()

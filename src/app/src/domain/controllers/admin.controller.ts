@@ -1,10 +1,21 @@
-import { Controller, Post, Body, UseGuards, Get, Delete, Param, Req } from '@nestjs/common';
-import { ShortUrlService } from '../services/short-url.service';
-import { JwtGuard } from '../guards/jwt.guard';
-import { CreateShortUrlDto } from '../dto/create-short-url.dto';
-import { Request } from 'express';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Get,
+  Delete,
+  Param,
+  Req,
+  Put,
+} from "@nestjs/common";
+import { ShortUrlService } from "../services/short-url.service";
+import { JwtGuard } from "../guards/jwt.guard";
+import { CreateShortUrlDto } from "../dto/create-short-url.dto";
+import { Request } from "express";
+import { UpdateShortUrlDto } from "../dto/update-short-url.dto";
 
-@Controller('admin/short-urls')
+@Controller("admin/short-urls")
 @UseGuards(JwtGuard)
 export class AdminController {
   constructor(private readonly svc: ShortUrlService) {}
@@ -16,8 +27,12 @@ export class AdminController {
   async findAll() {
     return this.svc.findAll();
   }
-  @Delete(':code')
-  async delete(@Param('code') code: string) {
+  @Put(":code")
+  async update(@Param("code") code: string, @Body() dto: UpdateShortUrlDto) {
+    return this.svc.update(code, dto);
+  }
+  @Delete(":code")
+  async delete(@Param("code") code: string) {
     return { success: await this.svc.delete(code) };
   }
 }
