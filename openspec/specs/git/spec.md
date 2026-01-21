@@ -2,9 +2,13 @@
 
 ## ADDED Requirements
 
+### Requirement: When we ask for commit the changes
+
+You _shall_ stage all modified and newly added files, analyze the changes then _create_ a commit message. Do _not_ ask user for a message.
+
 ### Requirement: When creating a git commit message
 
-You _must_ ask for commit message validation before validating commit.
+You _must_ ask to validate generated message before commit.
 Each Git commit message entry _must_ start with en emoji reflecting reflecting its type, see table below for the list of emojis for each type of commit :
 
 |   Commit type              | Emoji                                                     |
