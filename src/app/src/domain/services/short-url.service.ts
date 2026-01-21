@@ -20,6 +20,7 @@ export class ShortUrlService {
   constructor(
     @InjectRepository(ShortUrl)
     private readonly shortUrlRepository: Repository<ShortUrl>,
+    @InjectRepository(Click)
     private readonly clickRepository: Repository<Click>,
   ) {}
 
