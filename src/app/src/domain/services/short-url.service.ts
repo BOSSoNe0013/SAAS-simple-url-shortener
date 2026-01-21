@@ -43,7 +43,12 @@ export class ShortUrlService {
   }
 
   async create(dto: CreateShortUrlDto): Promise<ShortUrl> {
-    const code = await generateCode();
+    let code: string;
+    let exists: ShortUrl | undefined;
+    do {
+      code = await generateCode();
+      exists = await this.repo.findOne({ where: { code } });
+    } while (exists);
     const url = this.repo.create({
       code,
       targetUrl: dto.targetUrl,

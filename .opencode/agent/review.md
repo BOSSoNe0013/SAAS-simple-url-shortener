@@ -1,7 +1,6 @@
 ---
 description: Reviews code for quality and best practices
 mode: primary
-model: ollama/granite4:1b-h
 temperature: 0.1
 tools:
     write: false

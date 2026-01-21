@@ -1,7 +1,7 @@
 # Backend Implementation Task List
 
 - [x] **Implement DatabaseFactory**       | Create `DatabaseFactory` that returns `TypeOrmModuleOptions` based on `AppConfigService`.
-- [ ] **Ensure unique code generation**   | Modify `ShortUrlService.create` to retry generating a code on unique‑constraint violation.
+- [x] **Ensure unique code generation**   | Modify `ShortUrlService.create` to retry generating a code on unique‑constraint violation.
 - [ ] **Add click tracking**              | Create a method to record a click and increment the counter, integrate it in `RedirectController`.
 - [ ] **Add admin update route**          | Implement `PUT /admin/short-urls/:code` in `AdminController` to update short URLs.
 - [ ] **Align User entity and migration** | Add `@Column({ name: "password_hash" })` to `User.passwordHash` or adjust migration.
