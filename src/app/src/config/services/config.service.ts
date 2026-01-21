@@ -35,6 +35,14 @@ export class AppConfigService {
         return this.config.get<number>('PORT') ?? 6000;
     }
 
+    get rateLimitCapacity(): number {
+        return this.config.get<number>("RATE_LIMIT_CAPACITY") ?? 60;
+    }
+
+    get rateLimitWindowMs(): number {
+        return this.config.get<number>("RATE_LIMIT_WINDOW_MS") ?? 60000;
+    }
+
     get jwtSecret(): string {
         return this.config.get<string>('JWT_SECRET') ?? 'secret_key';
     }

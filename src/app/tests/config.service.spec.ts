@@ -13,6 +13,8 @@ describe("AppConfigService", () => {
     FRONTEND_URL: "https://frontend.example.com",
     PORT: 8080,
     JWT_SECRET: "supersecret",
+    RATE_LIMIT_CAPACITY: 80,
+    RATE_LIMIT_WINDOW_MS: 80000
   };
 
   const mockConfig = {
@@ -80,5 +82,23 @@ describe("AppConfigService", () => {
   it("falls back to 'secret_key' when JWT_SECRET not set", () => {
     const instance = new AppConfigService(emptyMock as any);
     expect(instance.jwtSecret).toBe("secret_key");
+  });
+
+  it("returns rateLimitCapacity", () => {
+    expect(configService.rateLimitCapacity).toBe(80);
+  });
+
+  it("falls back to '60' when RATE_LIMIT_CAPACITY not set", () => {
+    const instance = new AppConfigService(emptyMock as any);
+    expect(instance.rateLimitCapacity).toBe(60);
+  });
+
+  it("returns rateLimitWindowMs", () => {
+    expect(configService.rateLimitWindowMs).toBe(80000);
+  });
+
+  it("falls back to '60' when RATE_LIMIT_WINDOW_MS not set", () => {
+    const instance = new AppConfigService(emptyMock as any);
+    expect(instance.rateLimitWindowMs).toBe(60000);
   });
 });

@@ -6,6 +6,7 @@ import { UpdateShortUrlDto } from "../dto/update-short-url.dto";
 import { Click } from "../entities/click.entity";
 import { generateCode } from "../utils/code-generator";
 import { InjectRepository } from "@nestjs/typeorm";
+import { AppConfigService } from "../../config/services/config.service";
 
 @Injectable()
 export class ShortUrlService {
@@ -14,15 +15,19 @@ export class ShortUrlService {
     string,
     { tokens: number; lastRefill: number }
   >();
-  private readonly RATE_LIMIT_CAPACITY = 60;
-  private readonly RATE_LIMIT_WINDOW_MS = 60_000;
+  private readonly RATE_LIMIT_CAPACITY: number;
+  private readonly RATE_LIMIT_WINDOW_MS: number;
 
   constructor(
     @InjectRepository(ShortUrl)
     private readonly shortUrlRepository: Repository<ShortUrl>,
     @InjectRepository(Click)
     private readonly clickRepository: Repository<Click>,
-  ) {}
+    private readonly config: AppConfigService,
+  ) {
+    this.RATE_LIMIT_CAPACITY = this.config.rateLimitCapacity;
+    this.RATE_LIMIT_WINDOW_MS = this.config.rateLimitWindowMs;
+  }
 
   private refillBucket(ip: string) {
     const bucket = this.rateBuckets.get(ip) || {

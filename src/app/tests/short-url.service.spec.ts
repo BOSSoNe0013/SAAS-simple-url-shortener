@@ -6,6 +6,7 @@ import { ShortUrl } from "../src/domain/entities/short-url.entity";
 import { Click } from "../src/domain/entities/click.entity";
 import { CreateShortUrlDto } from "../src/domain/dto/create-short-url.dto";
 import { UpdateShortUrlDto } from "../src/domain/dto/update-short-url.dto";
+import { AppConfigService } from "../src/config/services/config.service";
 
 // Mock generateCode to return deterministic values
 jest.mock("../src/domain/utils/code-generator", () => ({
@@ -21,23 +22,30 @@ describe("ShortUrlService", () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ShortUrlService,
-        {
-          provide: getRepositoryToken(ShortUrl),
-          useValue: {
-            findOne: jest.fn(),
-            create: jest.fn(),
-            save: jest.fn(),
-            find: jest.fn(),
-            delete: jest.fn(),
-            increment: jest.fn(),
+          ShortUrlService,
+          {
+            provide: getRepositoryToken(ShortUrl),
+            useValue: {
+              findOne: jest.fn(),
+              create: jest.fn(),
+              save: jest.fn(),
+              find: jest.fn(),
+              delete: jest.fn(),
+              increment: jest.fn(),
+            },
           },
-        },
-        {
-          provide: getRepositoryToken(Click),
-          useValue: { create: jest.fn(), save: jest.fn() },
-        },
-      ],
+          {
+            provide: getRepositoryToken(Click),
+            useValue: { create: jest.fn(), save: jest.fn() },
+          },
+          {
+            provide: AppConfigService,
+            useValue: {
+              rateLimitCapacity: 60,
+              rateLimitWindowMs: 60000,
+            },
+          },
+        ],
     }).compile();
 
     service = module.get<ShortUrlService>(ShortUrlService);
