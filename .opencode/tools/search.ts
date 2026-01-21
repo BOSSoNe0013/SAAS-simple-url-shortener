@@ -8,7 +8,7 @@ export default tool({
     },
     async execute(args) {
         const result = 
-            await Bun.$`rg -n --ignore-file=../../.gitignore "${args.query}" "${args.path}"`.text();
+            await Bun.$`rg -n --ignore-file=../../.gitignore '${args.query}' '${args.path}'`.text();
         return result.trim() || "No matches found.";
     }
 })

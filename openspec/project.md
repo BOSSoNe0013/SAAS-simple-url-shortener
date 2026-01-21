@@ -99,6 +99,7 @@ url_shortener/
 - Types: strict mode, avoid `any`, prefer `unknown`.
 - Error handling: custom `AppError`, log with `AppLogger`, no silent failures.
 - No `console.log` in production branches.
+- Commit messages: Use emojiKarma commit format.
 - Code formatting: Prettier (2 spaces, single quotes, trailing commas).
 - Tests: files end with `.spec.ts` (backend) or `.spec.ts` / `.test.ts` (frontend).
 
