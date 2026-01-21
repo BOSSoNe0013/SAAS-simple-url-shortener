@@ -8,7 +8,7 @@ export class AppConfigService {
     ) {}
 
     get env(): string {
-        return this.config.get<string>("NODE_ENV", "development");
+        return this.config.get<string>("NODE_ENV") ?? "development";
     }
 
     get database(): {
@@ -19,23 +19,23 @@ export class AppConfigService {
         password: string
     } {
         return {
-            name: this.config.get<string>('DATABASE_NAME', "url_shortener"),
-            host: this.config.get("DATABASE_HOST", "localhost"),
-            port: Number(this.config.get("DATABASE_PORT", 5432)),
-            username: this.config.get("DATABASE_USERNAME", "postgres"),
-            password: this.config.get("DATABASE_PASSWORD", "password")
+            name: this.config.get<string>('DATABASE_NAME') ?? "url_shortener",
+            host: this.config.get<string>("DATABASE_HOST") ?? "localhost",
+            port: this.config.get<number>("DATABASE_PORT") ?? 5432,
+            username: this.config.get<string>("DATABASE_USERNAME") ?? "postgres",
+            password: this.config.get<string>("DATABASE_PASSWORD") ?? "password"
         };
    }
 
     get frontendUrl(): string {
-        return this.config.get<string>('FRONTEND_URL', 'http://localhost:6000');
+        return this.config.get<string>('FRONTEND_URL') ?? 'http://localhost:6000';
     }
 
     get port(): number {
-        return this.config.get<number>('PORT', 6000);
+        return this.config.get<number>('PORT') ?? 6000;
     }
 
     get jwtSecret(): string {
-        return this.config.get<string>('JWT_SECRET', 'secret_key');
+        return this.config.get<string>('JWT_SECRET') ?? 'secret_key';
     }
 }

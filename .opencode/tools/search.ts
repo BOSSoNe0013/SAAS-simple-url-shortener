@@ -10,7 +10,7 @@ export default tool({
   },
   async execute(args) {
     // Build absolute path for the ignore file
-    const ignoreFile = resolve("..", "..", ".gitignore");
+    const ignoreFile = resolve(".gitignore");
     // Escape query & path for the shell
     const cmd = `rg -n --ignore-file="${ignoreFile}" "${args.query}" "${args.path}"`;
     // Run ripgrep

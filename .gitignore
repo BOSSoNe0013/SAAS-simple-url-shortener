@@ -3,3 +3,5 @@ node_modules
 package-lock.json
 src/*/dist
 src/*/tsconfig.tsbuildinfo
+src/*/coverage
+.vscode
