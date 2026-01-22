@@ -28,11 +28,11 @@ export class AppConfigService {
    }
 
     get frontendUrl(): string {
-        return this.config.get<string>('FRONTEND_URL') ?? 'http://localhost:6000';
+        return this.config.get<string>('FRONTEND_URL') ?? 'http://localhost:5600';
     }
 
     get port(): number {
-        return this.config.get<number>('PORT') ?? 6000;
+        return this.config.get<number>('PORT') ?? 5600;
     }
 
     get rateLimitCapacity(): number {

@@ -6,8 +6,8 @@
 - [x] **Add admin update route** | Implement `PUT /admin/short-urls/:code` in `AdminController` to update short URLs.
 - [x] **Align User entity and migration** | Add `@Column({ name: "password_hash" })` to `User.passwordHash` or adjust migration.
 - [-] **Write tests** | Add Jest tests for services and controllers to reach >90 % coverage.
-- [ ] **Update Docker‑compose** | Expose backend, set env vars, run migrations on start.
+- [x] **Update Docker‑compose** | Expose backend, set env vars, run migrations on start.
 - [x] **Add scripts in package.json** | Scripts for migrations, lint, etc.
 - [x] **Make rate‑limit configurable** | Expose rate‑limit values via `AppConfigService`.
 - [x] **Create admin seed** | Bootstrap initial admin user on first run if none exists.
-- [ ] **Add Swagger** | Provide API documentation with OpenAPI and Swagger.
+- [x] **Add Swagger** | Provide API documentation with OpenAPI and Swagger.

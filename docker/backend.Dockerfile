@@ -22,5 +22,5 @@ COPY --from=builder --chown=nestjs:nodejs /app/src/app/dist ./dist
 COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
 # Switch to non-root user
 USER nestjs
-EXPOSE 6000
+EXPOSE 5600
 CMD ["node", "dist/main.js"]
