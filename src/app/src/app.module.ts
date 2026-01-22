@@ -5,6 +5,11 @@ import { AdminController } from './domain/controllers/admin.controller';
 import { RedirectController } from './domain/controllers/redirect.controller';
 import { AppConfigService } from './config/services/config.service';
 import { AppConfigModule } from './config/config.module';
+import { AuthController } from './domain/controllers/auth.controller';
+import { UsersModule } from './domain/users.module';
+import { JWTModule } from './domain/jwt.module';
+import { AuthModule } from './domain/auth.module';
+import { ShortUrlModule } from './domain/short-url.module';
 
 @Module({
   imports: [
@@ -14,13 +19,20 @@ import { AppConfigModule } from './config/config.module';
     }) as any,
     AppConfigModule,
     DomainModule,
+    JWTModule,
+    UsersModule,
+    AuthModule,
+    ShortUrlModule
   ],
   controllers: [
     AdminController, 
-    RedirectController
+    RedirectController,
+    AuthController,
   ],
   providers: [
     AppConfigService,
   ],
+  exports: [
+  ]
 })
 export class AppModule {}

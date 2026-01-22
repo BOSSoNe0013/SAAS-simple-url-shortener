@@ -6,7 +6,6 @@ import {
   Req,
   HttpStatus,
   Logger,
-  HostParam,
 } from "@nestjs/common";
 import { Response, Request } from "express";
 import { ShortUrlService } from "../services/short-url.service";

@@ -46,4 +46,12 @@ export class AppConfigService {
     get jwtSecret(): string {
         return this.config.get<string>('JWT_SECRET') ?? 'secret_key';
     }
+
+    get defaultAdminAccount(): string {
+        return this.config.get<string>('ADMIN_ACCOUNT') ?? 'admin';
+    }
+
+    get defaultAdminPassword(): string {
+        return this.config.get<string>('ADMIN_password') ?? 'Please change this password immediately';
+    }
 }

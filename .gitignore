@@ -5,3 +5,4 @@ src/*/dist
 src/*/tsconfig.tsbuildinfo
 src/*/coverage
 .vscode
+.opencode_env

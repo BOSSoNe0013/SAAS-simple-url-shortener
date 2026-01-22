@@ -9,4 +9,4 @@
 - [ ] **Update Docker‑compose** | Expose backend, set env vars, run migrations on start.
 - [-] **Add scripts in package.json** | Scripts for migrations, lint, etc.
 - [x] **Make rate‑limit configurable** | Expose rate‑limit values via `AppConfigService`.
-- [ ] **Create admin seed** | Bootstrap initial admin user on first run if none exists.
+- [x] **Create admin seed** | Bootstrap initial admin user on first run if none exists.

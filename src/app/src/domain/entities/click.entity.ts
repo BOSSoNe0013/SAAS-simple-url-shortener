@@ -3,11 +3,11 @@ import { ShortUrl } from './short-url.entity';
 
 @Entity()
 export class Click {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
-  @Column()
-  shortUrlId!: number;
+  @Column("uuid")
+  shortUrlId!: string;
 
   @ManyToOne(() => ShortUrl, (url) => url.clickRecords, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'shortUrlId' })

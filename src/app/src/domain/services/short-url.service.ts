@@ -53,7 +53,7 @@ export class ShortUrlService {
     return false;
   }
 
-  async recordClick(shortUrlId: number, ipAddress: string): Promise<void> {
+  async recordClick(shortUrlId: string, ipAddress: string): Promise<void> {
     const click = this.clickRepository.create({ shortUrlId, ipAddress });
     await this.clickRepository.save(click);
     await this.shortUrlRepository.increment({ id: shortUrlId }, "clicks", 1);

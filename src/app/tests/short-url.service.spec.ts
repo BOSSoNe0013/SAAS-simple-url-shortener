@@ -168,17 +168,17 @@ describe("ShortUrlService", () => {
   });
 
   it("records a click and increments counter", async () => {
-    const clickObj = { shortUrlId: 1, ipAddress: "1.2.3.4" } as any;
+    const clickObj = { shortUrlId: "ABC", ipAddress: "1.2.3.4" } as any;
     (clickRepo.create as jest.Mock).mockReturnValue(clickObj);
     (clickRepo.save as jest.Mock).mockResolvedValue(clickObj);
     (shortUrlRepo.increment as jest.Mock).mockResolvedValue(undefined);
-    await service.recordClick(1, "1.2.3.4");
+    await service.recordClick("ABC", "1.2.3.4");
     expect(clickRepo.create).toHaveBeenCalledWith({
-      shortUrlId: 1,
+      shortUrlId: "ABC",
       ipAddress: "1.2.3.4",
     });
     expect(clickRepo.save).toHaveBeenCalledWith(clickObj);
-    expect(shortUrlRepo.increment).toHaveBeenCalledWith({ id: 1 }, "clicks", 1);
+    expect(shortUrlRepo.increment).toHaveBeenCalledWith({ id: "ABC" }, "clicks", 1);
   });
 
   it("rate limiting allows up to capacity requests", () => {
