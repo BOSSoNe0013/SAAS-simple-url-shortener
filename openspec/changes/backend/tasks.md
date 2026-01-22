@@ -10,3 +10,4 @@
 - [x] **Add scripts in package.json** | Scripts for migrations, lint, etc.
 - [x] **Make rate‑limit configurable** | Expose rate‑limit values via `AppConfigService`.
 - [x] **Create admin seed** | Bootstrap initial admin user on first run if none exists.
+- [ ] **Add Swagger** | Provide API documentation with OpenAPI and Swagger.
