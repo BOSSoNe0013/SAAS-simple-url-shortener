@@ -7,6 +7,6 @@
 - [x] **Align User entity and migration** | Add `@Column({ name: "password_hash" })` to `User.passwordHash` or adjust migration.
 - [-] **Write tests** | Add Jest tests for services and controllers to reach >90 % coverage.
 - [ ] **Update Docker‑compose** | Expose backend, set env vars, run migrations on start.
-- [-] **Add scripts in package.json** | Scripts for migrations, lint, etc.
+- [x] **Add scripts in package.json** | Scripts for migrations, lint, etc.
 - [x] **Make rate‑limit configurable** | Expose rate‑limit values via `AppConfigService`.
 - [x] **Create admin seed** | Bootstrap initial admin user on first run if none exists.
