@@ -4,7 +4,7 @@ import { ShortUrl } from "../entities/short-url.entity";
 import { CreateShortUrlDto } from "../dto/create-short-url.dto";
 import { UpdateShortUrlDto } from "../dto/update-short-url.dto";
 import { Click } from "../entities/click.entity";
-import { generateCode } from "../utils/code-generator";
+import { generateCode } from "../../utils/code-generator";
 import { InjectRepository } from "@nestjs/typeorm";
 import { AppConfigService } from "../../config/services/config.service";
 

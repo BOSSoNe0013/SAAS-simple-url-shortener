@@ -2,11 +2,20 @@ export default {
   preset: "ts-jest",
   testEnvironment: "node",
   moduleFileExtensions: ["js", "ts", "json", "node"],
-  testMatch: ["**/tests/**/*.+(ts|tsx)"],
+  testMatch: ["**/tests/**/*\\.spec\\.(ts|tsx)"],
   transform: {
     "^.+\\.tsx?$": ["ts-jest", {
       tsconfig: "tsconfig.json",
     }],
   },
-  testPathIgnorePatterns: ["/dist/"],
+  testPathIgnorePatterns: ["/dist/", "/src/domain/entities/"],
+  collectCoverageFrom: [
+    "src/**/*.ts",
+    "!src/*.ts",
+    "!src/scripts/*.ts",
+    "!src/**/*.entity.ts",
+    "!src/**/*.dto.ts",
+    "!src/config/*.module.ts",
+    "!src/domain/*.module.ts"
+  ]
 };
