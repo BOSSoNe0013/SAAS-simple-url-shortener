@@ -1,4 +1,3 @@
-import { Test, TestingModule } from "@nestjs/testing";
 import { AppConfigService } from "../src/config/services/config.service";
 
 describe("AppConfigService", () => {
@@ -63,7 +62,7 @@ describe("AppConfigService", () => {
 
   it("returns default frontendUrl", () => {
     const instance = new AppConfigService(emptyMock as any);
-    expect(instance.frontendUrl).toBe("http://localhost:6000");
+    expect(instance.frontendUrl).toBe("http://localhost:5600");
   });
 
   it("returns port from config", () => {
