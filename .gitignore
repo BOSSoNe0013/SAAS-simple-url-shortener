@@ -2,5 +2,7 @@ node_modules
 .env
 package-lock.json
 src/*/dist
-.opencode_env
 src/*/tsconfig.tsbuildinfo
+src/*/coverage
+.vscode
+.opencode_env

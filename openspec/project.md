@@ -20,7 +20,7 @@ url_shortener/
 │  └─ frontend.Dockerfile
 ├─ src/
 │  ├─ app/
-│  │   ├── src
+│  │   ├── src/
 │  │   │   ├── app.module.ts
 │  │   │   ├── config/                           - Configuration files (environments, etc.)
 │  │   │   │   ├── config.module.ts
@@ -47,12 +47,14 @@ url_shortener/
 │  │   │   │   │   └── short-url.service.ts
 │  │   │   │   └── utils/                        – Utilities.
 │  │   │   │       └── code-generator.ts
+│  │   │   ├── tests/                           - Backend test files.
 │  │   │   └── main.ts                          – Application bootstrap.
 │  │   └── tsconfig.json
 │  ├── db
 │  │   └── migration/
-│  │       └── 20260120-create-tables.ts│  |  └─ src/
+│  │       └── 20260120-create-tables.ts
 │  └─ front/
+│  │  ├── tests/                                - Frontend test files.
 │     └─ src/
 │        ├─ ui/                                 – NuxtUI components.
 │        ├─ pages/                              – Vue pages.
@@ -76,6 +78,7 @@ url_shortener/
 - `npm run lint` – ESLint + Prettier.
 - `npm run format` – Prettier fix.
 - `npm test` – Run all Jest tests.
+- `npm test:cov` – Run all Jest tests with coverage report.
 - `npx jest <file>` – Run a single backend test.
 - `npx vitest <file>` – Run a single Vue test.
 - `docker compose up -d` – spin up all services.
@@ -99,8 +102,9 @@ url_shortener/
 - Types: strict mode, avoid `any`, prefer `unknown`.
 - Error handling: custom `AppError`, log with `AppLogger`, no silent failures.
 - No `console.log` in production branches.
+- Commit messages: Use emojis in commit messages following the specs in `./specs/git/spec.md`.
 - Code formatting: Prettier (2 spaces, single quotes, trailing commas).
-- Tests: files end with `.spec.ts` (backend) or `.spec.ts` / `.test.ts` (frontend).
+- Tests: files end with `.spec.ts` (backend) or `.spec.ts` / `.test.ts` (frontend). files are stored in src/app/tests for backend and src/front/tests for frontend.
 
 ## Constraints
 - Rate limit incoming short URL requests using a token bucket per‑user.

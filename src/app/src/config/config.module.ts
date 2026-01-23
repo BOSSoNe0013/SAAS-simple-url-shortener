@@ -8,7 +8,6 @@ import { AppConfigService } from "./services/config.service";
         AppConfigService,
     ],
     exports: [
-        ConfigService,
         AppConfigService,
     ]
 })

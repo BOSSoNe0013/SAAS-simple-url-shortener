@@ -68,7 +68,13 @@ These instructions are the central knowledge base for all AI assistants running 
 
 ---
 
-## 4. Cursor Rules
+## 4. Openspec Rules
+
+Read rules in `openspec/AGENTS.md`
+
+---
+
+## 5. Cursor Rules
 
 Cursor integration is optional.  If a `.cursor` directory exists with a `rules.json` file, follow those rules.
 If not present, this project uses the cursor default of:
@@ -81,20 +87,20 @@ If not present, this project uses the cursor default of:
 
 ---
 
-## 5. Copilot Rules
+## 6. Copilot Rules
 
 No dedicated Copilot config file is available.  Copilot may be enabled, but developers are encouraged to review suggested snippets against the style guide above.
 
 ---
 
-## 6. Docker & CI
+## 7. Docker & CI
 
 * Docker Compose uses a multi‑stage build; the `backend` stage installs dependencies and builds NestJS.
 * The CI pipeline (GitHub Actions) mirrors the `npm test` and `docker compose` steps, ensuring style and tests pass before merge.
 
 ---
 
-## 7. Miscellaneous
+## 8. Miscellaneous
 
 * All repository secrets (e.g., DATABASE_URL, JWT_SECRET) must be stored in a .env file or GitHub Actions secrets.
 * Database migrations use TypeORM `ormconfig.json`; run `npm run migration:run` to apply.
@@ -102,7 +108,7 @@ No dedicated Copilot config file is available.  Copilot may be enabled, but deve
 
 ---
 
-## 8. How to Use This File
+## 9. How to Use This File
 
 AI agents should reference this file whenever they need to know:
 * How to run, lint, test, or build the project.

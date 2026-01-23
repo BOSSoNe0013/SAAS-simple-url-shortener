@@ -1,10 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne } from 'typeorm';
 import { Click } from './click.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class ShortUrl {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
   @Column({ unique: true })
   code!: string;
@@ -26,4 +27,10 @@ export class ShortUrl {
 
   @OneToMany(() => Click, (click) => click.shortUrl)
   clickRecords!: Click[];
+
+  @Column("uuid")
+  ownerId: string;
+
+  @ManyToOne(() => User, (user) => user.shortUrls)
+  owner!: User;
 }
