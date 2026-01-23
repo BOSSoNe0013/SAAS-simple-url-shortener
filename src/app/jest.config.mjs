@@ -15,6 +15,7 @@ export default {
     "!src/scripts/*.ts",
     "!src/**/*.entity.ts",
     "!src/**/*.dto.ts",
-    "!src/**/*.module.ts"
+    "!src/config/*.module.ts",
+    "!src/domain/*.module.ts"
   ]
 };
