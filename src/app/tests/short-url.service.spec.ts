@@ -9,11 +9,9 @@ import { UpdateShortUrlDto } from "../src/domain/dto/update-short-url.dto";
 import { AppConfigService } from "../src/config/services/config.service";
 
 // Mock generateCode to return deterministic values
-jest.mock("../src/domain/utils/code-generator", () => ({
-  generateCode: jest.fn(),
+jest.mock("nanoid", () => ({
+  customAlphabet: () => () => "ABC123"
 }));
-
-const { generateCode } = require("../src/domain/utils/code-generator");
 
 describe("ShortUrlService", () => {
   let service: ShortUrlService;
@@ -56,13 +54,12 @@ describe("ShortUrlService", () => {
   });
 
   it("creates a new short URL with unique code", async () => {
-    generateCode.mockResolvedValueOnce("ABC123");
     (shortUrlRepo.findOne as jest.Mock).mockResolvedValue(undefined);
     (shortUrlRepo.create as jest.Mock).mockImplementation((e: any) => ({
       ...e,
     }));
     (shortUrlRepo.save as jest.Mock).mockImplementation((e: any) => ({
-      id: 1,
+      id: "aaabbbccc",
       ...e,
     }));
     const dto: CreateShortUrlDto = {
@@ -70,7 +67,6 @@ describe("ShortUrlService", () => {
       expiresAt: undefined,
     };
     const result = await service.create(dto);
-    expect(generateCode).toHaveBeenCalled();
     expect(shortUrlRepo.findOne).toHaveBeenCalledWith({
       where: { code: "ABC123" },
     });
@@ -81,7 +77,7 @@ describe("ShortUrlService", () => {
   it("finds all short URLs", async () => {
     const entities: ShortUrl[] = [
       {
-        id: 1,
+        id: "aaabbbccc",
         code: "A",
         targetUrl: "x",
         clicks: 0,
@@ -90,7 +86,7 @@ describe("ShortUrlService", () => {
         clickRecords: [],
       } as any,
       {
-        id: 2,
+        id: "bbbcccddd",
         code: "B",
         targetUrl: "y",
         clicks: 0,
@@ -109,7 +105,7 @@ describe("ShortUrlService", () => {
 
   it("finds one by code", async () => {
     const entity: ShortUrl = {
-      id: 1,
+      id: "aaabbbccc",
       code: "XYZ",
       targetUrl: "x",
       clicks: 0,
@@ -127,7 +123,7 @@ describe("ShortUrlService", () => {
 
   it("updates an existing URL", async () => {
     const existing: ShortUrl = {
-      id: 1,
+      id: "aaabbbccc",
       code: "XYZ",
       targetUrl: "x",
       clicks: 0,
