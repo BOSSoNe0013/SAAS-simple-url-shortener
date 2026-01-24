@@ -8,7 +8,8 @@ async function bootstrap() {
   const logger = new Logger("Backend App");
   const app = await NestFactory.create(AppModule, { logger: new Logger("Backend App") });
   SwaggerConfig.setup(app);
-  const port = app.get(AppConfigService).port;
+  const config = app.get(AppConfigService);
+  const port = config.port + 1;
   await app.listen(port);
   logger.log(`Backend listening on http://localhost:${port}`);
   logger.log(`API Documentation: http://localhost:${port}/docs`);
