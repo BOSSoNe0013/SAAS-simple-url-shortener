@@ -7,10 +7,12 @@
         "src/app"
     ],
     "scripts": {
-        "dev": "concurrently \"npm run dev:backend\"",
+        "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
         "dev:backend": "cd src/app && npm run start:dev",
-        "build": "npm run build:backend",
+        "dev:frontend": "cd src/front && npm run dev",
+        "build": "npm run build:backend && npm run build:frontend",
         "build:backend": "cd src/app && npm run build",
+        "build:frontend": "cd src/front && npm run build",
         "test": "npm run test:backend",
         "test:backend": "cd src/app && npm run test",
         "test:cov": "npm run test:backend:cov",
