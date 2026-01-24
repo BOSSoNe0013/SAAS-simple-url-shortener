@@ -1,0 +1,6 @@
+@layer base, components, utilities, theme, fonts, consent;
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import "@catppuccin/tailwindcss/mocha.css";
+
+@plugin "@tailwindcss/forms";
