@@ -5,7 +5,11 @@ import { RouterView } from "vue-router";
 <template>
   <UApp>
     <UPage>
-      <UHeader title="B1Shortener Admin" />
+      <UHeader title="B1Shortener Admin">
+        <template #right>
+          <UColorModeButton />
+        </template>
+      </UHeader>
       <router-view />
     </UPage>
   </UApp>

@@ -24,11 +24,6 @@ export default defineConfig(({mode}) => {
     base: "/",
     root: './src',
     envDir: '../../',
-    resolve: {
-      alias: {
-        "@": './src',
-      },
-    },
     server: {
       allowedHosts: [
         'short.b1project.com'
