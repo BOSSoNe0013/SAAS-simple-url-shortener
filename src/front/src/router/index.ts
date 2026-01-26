@@ -26,6 +26,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const auth = useAuthStore();
+  console.log(`Access token: ${auth.token}`);
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
     next({ name: "AdminLogin" });
   } else if (!to.meta.requiresAuth && auth.isAuthenticated) {
