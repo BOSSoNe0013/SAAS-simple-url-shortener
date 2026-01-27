@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ShortUrlForm from '../components/ShortUrlForm.vue';
+import ShortUrlForm from '../../components/ShortUrlForm.vue';
 
 </script>
 
