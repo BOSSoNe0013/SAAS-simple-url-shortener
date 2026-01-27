@@ -26,7 +26,7 @@ const auth = useAuthStore();
       </template>
     </UHeader>
     <UMain>
-      <UContainer>
+      <UContainer class="px-0 sm:px-0 lg:px-0">
         <router-view />
       </UContainer>
     </UMain>

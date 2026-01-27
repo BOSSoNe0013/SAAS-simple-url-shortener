@@ -1,19 +1,24 @@
 <script lang="ts" setup>
+import { useAuthStore } from "../store/auth";
 import { ref } from "vue";
 
 const targetUrl = ref("");
 const expiry = ref("");
 const code = ref("");
 const error = ref("");
+const auth = useAuthStore();
 
 async function handleSubmit() {
   error.value = "";
   try {
     const payload: any = { targetUrl: targetUrl.value };
     if (expiry.value) payload.expiry = new Date(expiry.value).toISOString();
-    const res = await fetch("/admin/short-urls", {
+    const res = await fetch("/api/v1/admin/short-urls", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${auth.token}`
+      },
       body: JSON.stringify(payload),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
