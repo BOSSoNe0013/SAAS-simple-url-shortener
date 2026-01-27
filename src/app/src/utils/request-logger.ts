@@ -30,17 +30,25 @@ const getResponseLog = (res: Response) => {
             chunkBuffers.push(Buffer.from(resArgs[0]));
         }
         const body = Buffer.concat(chunkBuffers).toString('utf8');
-        const responseLog = {
-            response: {
-                statusCode: res.statusCode,
-                body: JSON.parse(body) || body || {},
-                // Returns a shallow copy of the current outgoing headers
-                headers: res.getHeaders(),
-            },
-        };
-        logger.log(responseLog);
-        rawResponseEnd.apply(res, resArgs);
-        return responseLog as unknown as Response;
+        let message;
+        try {
+            message = JSON.parse(body);
+        } catch {
+            message = body || {};
+        }
+        finally {
+            const responseLog = {
+                response: {
+                    statusCode: res.statusCode,
+                    body:  message,
+                    // Returns a shallow copy of the current outgoing headers
+                    headers: res.getHeaders(),
+                },
+            };
+            logger.log(responseLog);
+            rawResponseEnd.apply(res, resArgs);
+            return responseLog as unknown as Response;
+        }
     };
 };
 

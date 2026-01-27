@@ -76,7 +76,18 @@ export class ShortUrlService {
   }
 
   async findAll(): Promise<ShortUrl[]> {
-    return this.shortUrlRepository.find({ relations: ["clickRecords"] });
+    return this.shortUrlRepository.find({ 
+      relations: ["clickRecords"]
+     });
+  }
+
+  async findAllForUser(userId: string): Promise<ShortUrl[]> {
+    return this.shortUrlRepository.find({ 
+      relations: ["clickRecords"],
+      where: {
+        ownerId: userId
+      }
+     });
   }
 
   async findOne(code: string): Promise<ShortUrl | null> {

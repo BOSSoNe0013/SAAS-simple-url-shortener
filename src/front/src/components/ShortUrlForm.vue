@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import { useAuthStore } from "../store/auth";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const targetUrl = ref("");
 const expiry = ref("");
 const code = ref("");
+const shortURL = computed(() => {
+  return `${import.meta.env.VITE_FRONTEND_URL}/${code.value}`;
+});
 const error = ref("");
 const auth = useAuthStore();
 
@@ -66,7 +69,7 @@ async function handleSubmit() {
         </div>
         <UButton type="submit">Create Short URL</UButton>
       </UForm>
-      <div v-if="code" class="mt-2">New code: {{ code }}</div>
+      <div v-if="code" class="mt-2">New short URL: {{ shortURL }}</div>
       <div v-if="error" style="color: red">Error: {{ error }}</div>
     </UCard>
 </template>

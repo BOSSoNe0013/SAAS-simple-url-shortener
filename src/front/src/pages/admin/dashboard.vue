@@ -41,7 +41,7 @@ const view = computed(() => {
 
 <template>
   <UDashboardGroup class="static">
-    <UDashboardSidebar collapsible>
+    <UDashboardSidebar collapsible class="h-full">
       <template #default="{ collapsed }">
         <ul class="flex flex-col gap-4 mx-0 px-0">
           <li v-for="p in pages">

@@ -29,8 +29,8 @@ export class AdminController {
     return this.svc.create(user.sub, dto);
   }
   @Get()
-  async findAll() {
-    return this.svc.findAll();
+  async findAll(@GetUser() user: any) {
+    return this.svc.findAllForUser(user.sub);
   }
   @Put(":code")
   async update(@GetUser() user: any, @Param("code") code: string, @Body() dto: UpdateShortUrlDto) {
