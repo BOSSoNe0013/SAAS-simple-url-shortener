@@ -1,18 +1,27 @@
 # Git specifications
 
-## ADDED Requirements
+## Commit Message & Git Workflow Rules
 
-### Requirement: When we ask for commit the changes
+### Requirement: When committing changes
 
-You _shall_ stage all modified and newly added files, analyze the changes then _create_ a commit message. Do _not_ ask user for a message.
+- You **must** stage all modified and newly added files, analyze the diff, and automatically generate a commit message. Do **not** ask the user for a message.
+- The message **must not** contain raw backticks. If a backtick is required (e.g., for code fences), it must be escaped (`\``).
 
 ### Requirement: When creating a git commit message
 
-You _must_ ask to validate generated message before commit.
-Each Git commit message entry _must_ start with en emoji reflecting reflecting its type, see table below for the list of emojis for each type of commit :
+- After generating the message, the system must present it for human validation **before** creating the commit.
+- The message must begin with the emoji that represents the commit type (see table below).
 
-|   Commit type              | Emoji                                                     |
-|:---------------------------|:----------------------------------------------------------|
+### Commit Message Structure
+
+1. **Subject** – one line, ~50 chars, starts with the emoji and a concise verb phrase (e.g., `:bug: Fix login redirect`).
+2. **Body** – optional, separated by a blank line, with a brief explanation and any relevant links.
+3. **Footer** – optional, such as issue references (`Closes #123`).
+
+### Emoji Table
+
+| Commit type                | Emoji                                                     |
+| -------------------------- | --------------------------------------------------------- |
 | Initial commit             | :tada: `:tada:`                                           |
 | Version tag                | :bookmark: `:bookmark:`                                   |
 | New feature                | :sparkles: `:sparkles:`                                   |
@@ -41,7 +50,7 @@ Each Git commit message entry _must_ start with en emoji reflecting reflecting i
 | Fixing on MacOS            | :apple: `:apple:`                                         |
 | Fixing on Linux            | :penguin: `:penguin:`                                     |
 | Fixing on Windows          | :checkered_flag: `:checkered_flag:`                       |
-| Work in progress           | :construction:  `:construction:`                          |
+| Work in progress           | :construction: `:construction:`                           |
 | Adding CI build system     | :construction_worker: `:construction_worker:`             |
 | Analytics or tracking code | :chart_with_upwards_trend: `:chart_with_upwards_trend:`   |
 | Removing a dependency      | :heavy_minus_sign: `:heavy_minus_sign:`                   |

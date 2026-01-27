@@ -16,7 +16,7 @@ const routes = [
     name: "AdminDashboard",
     meta: { requiresAuth: true },
   },
-  { path: "/:pathMatch(.*)*", redirect: "/admin/login" },
+  { path: "/", redirect: "/admin/login" },
 ];
 
 const router = createRouter({
@@ -25,13 +25,17 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const auth = useAuthStore();
-  console.log(`Access token: ${auth.token}`);
-  if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    next({ name: "AdminLogin" });
-  } else if (!to.meta.requiresAuth && auth.isAuthenticated) {
-    // If already logged in, skip login page
-    next({ name: "AdminDashboard" });
+  if(to.fullPath.startsWith('/admin')) {
+    const auth = useAuthStore();
+    console.log(`Access token: ${auth.token}`);
+    if (to.meta.requiresAuth && !auth.isAuthenticated) {
+      next({ name: "AdminLogin" });
+    } else if (!to.meta.requiresAuth && auth.isAuthenticated) {
+      // If already logged in, skip login page
+      next({ name: "AdminDashboard" });
+    } else {
+      next();
+    }
   } else {
     next();
   }
