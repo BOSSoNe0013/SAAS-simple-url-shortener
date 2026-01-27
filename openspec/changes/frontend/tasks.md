@@ -33,8 +33,9 @@
 
 ## 6. Pages assembly
 
-- [ ] `/admin/index.vue` dashboard.
-- [ ] `/admin/short-urls.vue` page.
+- [ ] `/pages/admin/dashboard.vue` dashboard.
+- [ ] `/pages/admin/short-url.vue` page.
+- [ ] `/pages/admin/short-urls.vue` page.
 - [ ] `/admin/account.vue` page.
 
 ## 7. Styling & UX

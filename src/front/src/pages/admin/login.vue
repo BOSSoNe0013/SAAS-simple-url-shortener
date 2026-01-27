@@ -33,7 +33,7 @@ async function login() {
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center h-screen">
+  <UPage class="flex flex-col items-center justify-center h-screen">
     <UCard class="w-full max-w-md p-4">
       <h2 class="text-xl font-bold mb-4">Admin Login</h2>
       <UInput v-model="username" label="Username" class="mb-4" />
@@ -45,5 +45,5 @@ async function login() {
       />
       <UButton color="primary" @click="login">Login</UButton>
     </UCard>
-  </div>
+  </UPage>
 </template>
