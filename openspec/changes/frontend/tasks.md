@@ -8,19 +8,19 @@
 
 ## 2. Auth flow
 
-- [ ] Implement Pinia `auth` store.
-- [ ] Develop `pages/admin/login.vue` with form validation.
-- [ ] Axios instance with interceptor for JWT.
+- [x] Implement Pinia `auth` store.
+- [x] Develop `pages/admin/login.vue` with form validation.
+- [x] Axios instance with interceptor for JWT.
 - [ ] Handle 401 globally to clear store and redirect.
 
 ## 3. Navigation guard
 
-- [ ] Vue Router `beforeEach` guard checks `auth.isAuthenticated`.
-- [ ] Redirect to `/admin/login` if not.
+- [x] Vue Router `beforeEach` guard checks `auth.isAuthenticated`.
+- [x] Redirect to `/admin/login` if not.
 
 ## 4. URL CRUD UI
 
-- [ ] `ShortUrlForm.vue` component.
+- [x] `ShortUrlForm.vue` component.
 - [ ] `ShortUrlList.vue` component with `UTable`.
 - [ ] `ShortUrlCard.vue` for single URL view/edit.
 - [ ] Integration with `stores/shortUrls`.
