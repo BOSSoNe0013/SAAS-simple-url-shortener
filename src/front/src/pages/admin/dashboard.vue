@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import ShortUrlForm from "./ShortUrlForm.vue";
+import ShortUrlPage from "./short-url.vue";
 
 const view = computed(() => {
-    return ShortUrlForm
+    return ShortUrlPage
 })
 </script>
 
