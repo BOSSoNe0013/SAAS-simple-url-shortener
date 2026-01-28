@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import useAPI from "../../api";
 import { useAuthStore } from "../../store/auth";
 import { ref } from "vue";
 
 const auth = useAuthStore();
+const api = useAPI();
 
 // Load persisted token on init
 if (!auth.isAuthenticated) auth.loadPersisted();
@@ -12,17 +14,9 @@ const password = ref("");
 
 async function login() {
   try {
-    const resp = await fetch("/api/v1/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value,
-      }),
-    });
-    if (!resp.ok) throw new Error("Login failed");
-    const data = await resp.json();
-    const jwt = resp.headers.get("Authorization"); // token returned in header
+    const resp = await api.login(username.value, password.value);
+    if (!resp || resp.status !== 200) throw new Error("Login failed");
+    const jwt = resp.headers.getAuthorization?.toString(); // token returned in header
     if (jwt) auth.setToken(jwt);
     // Redirect to dashboard
     window.location.href = "/admin";
