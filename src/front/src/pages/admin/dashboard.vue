@@ -26,7 +26,7 @@ const pages: {
     icon: 'i-lucide-user'
   }
 ];
-const page = ref<'short-url'|'short-urls'|'account'>('short-url');
+const page = defineModel<'short-url'|'short-urls'|'account'>({ default: 'short-url' });
 const view = computed(() => {
   switch (page.value) {
     case 'account':

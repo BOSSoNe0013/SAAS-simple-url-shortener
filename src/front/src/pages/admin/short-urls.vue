@@ -2,6 +2,7 @@
 import { TableColumn } from '@nuxt/ui';
 import { useAuthStore } from '../../store/auth';
 import { onMounted, reactive, ref } from 'vue';
+import useAPI from '../../api';
 
 type Item = {
     id: string,
@@ -15,17 +16,12 @@ type Item = {
 const data = reactive<Item[]>([]);
 const auth = useAuthStore();
 const toast = useToast();
+const api = useAPI();
 
 const getUrls = async() => {
-    const res = await fetch('/api/v1/admin/short-urls', {
-        method: "GET",
-        headers: { 
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${auth.token}`
-        },
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const items = await res.json();
+    const res = await api.getShortURLs();
+    if (res.status !== 200) throw new Error(`HTTP ${res.status}`);
+    const items = res.data;
     items.forEach((item: any) => {
         data.push({
             id: item.id,

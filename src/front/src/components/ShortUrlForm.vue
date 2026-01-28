@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import useAPI from "../api";
 import { useAuthStore } from "../store/auth";
 import { computed, ref } from "vue";
 
@@ -11,6 +12,7 @@ const shortURL = computed(() => {
 const error = ref("");
 const success = ref("");
 const auth = useAuthStore();
+const api = useAPI();
 
 async function handleSubmit() {
   success.value = "";
@@ -18,16 +20,9 @@ async function handleSubmit() {
   try {
     const payload: any = { targetUrl: targetUrl.value };
     if (expiry.value) payload.expiry = new Date(expiry.value).toISOString();
-    const res = await fetch("/api/v1/admin/short-urls", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${auth.token}`,
-      },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+    const res = await api.createShortURL(payload)
+    if (res.status !== 201) throw new Error(`HTTP ${res.status}`);
+    const data = res.data;
     code.value = data.code;
   } catch (err: any) {
     error.value = err.message;

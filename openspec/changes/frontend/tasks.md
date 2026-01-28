@@ -11,7 +11,7 @@
 - [x] Implement Pinia `auth` store.
 - [x] Develop `pages/admin/login.vue` with form validation.
 - [x] Axios instance with interceptor for JWT.
-- [ ] Handle 401 globally to clear store and redirect.
+- [x] Handle 401 globally to clear store and redirect.
 
 ## 3. Navigation guard
 
@@ -33,8 +33,8 @@
 
 ## 6. Pages assembly
 
-- [ ] `/pages/admin/dashboard.vue` dashboard.
-- [ ] `/pages/admin/short-url.vue` page.
+- [x] `/pages/admin/dashboard.vue` dashboard.
+- [x] `/pages/admin/short-url.vue` page.
 - [ ] `/pages/admin/short-urls.vue` page.
 - [ ] `/admin/account.vue` page.
 

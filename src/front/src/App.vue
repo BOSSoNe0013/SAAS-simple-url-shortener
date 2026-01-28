@@ -1,33 +1,48 @@
 <script setup lang="ts">
-import { NavigationMenuItem } from "@nuxt/ui";
-import { computed, ref } from "vue";
+import { computed, Ref, ref } from "vue";
 import { RouterView, useRoute } from "vue-router";
 import { useAuthStore } from "./store/auth";
 
 const route = useRoute();
 const auth = useAuthStore();
 
-const pages: {
+const menuOpenState = ref<boolean>(false);
+const pages: Ref<{
   page: 'short-url'|'short-urls'|'account',
   icon: string,
   label: string,
-}[] = [
-  {
-    page: 'short-url',
-    label: 'New short URL',
-    icon: 'i-lucide-link'
-  },
-  {
-    page:'short-urls',
-    label: 'My Short URLs',
-    icon: 'i-lucide-list'
-  },
-  {
-    page:'account',
-    label: 'My account',
-    icon: 'i-lucide-user'
-  }
-];
+}[]> = computed(() =>{
+  if (!auth.isAuthenticated) return [];
+  return [
+    {
+      page: 'short-url',
+      label: 'New short URL',
+      icon: 'i-lucide-link',
+      onSelect: () => {
+        page.value = 'short-url';
+        menuOpenState.value = false;
+      }
+    },
+    {
+      page:'short-urls',
+      label: 'My Short URLs',
+      icon: 'i-lucide-list',
+      onSelect: () => {
+        page.value = 'short-urls';
+        menuOpenState.value = false;
+      }
+    },
+    {
+      page:'account',
+      label: 'My account',
+      icon: 'i-lucide-user',
+      onSelect: () => {
+        page.value = 'account';
+        menuOpenState.value = false;
+      }
+    }
+  ];
+});
 const page = ref<'short-url'|'short-urls'|'account'>('short-url');
 </script>
 
@@ -38,7 +53,8 @@ const page = ref<'short-url'|'short-urls'|'account'>('short-url');
       class="static" 
       to="/admin" 
       toggle-side="left" 
-      mode="slideover"
+      mode="slideover" 
+      v-model:open="menuOpenState"
       :ui="{
         container: 'max-w-full',
         overlay: 'bg-secondary-950/25',
@@ -56,7 +72,7 @@ const page = ref<'short-url'|'short-urls'|'account'>('short-url');
     </UHeader>
     <UMain class="min-h-full">
       <UContainer class="px-0 sm:px-0 lg:px-0 h-full max-w-full">
-        <router-view />
+        <router-view v-model="page"/>
       </UContainer>
     </UMain>
   </UApp>
