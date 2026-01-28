@@ -10,6 +10,7 @@ import { UsersModule } from './domain/users.module';
 import { JWTModule } from './domain/jwt.module';
 import { AuthModule } from './domain/auth.module';
 import { ShortUrlModule } from './domain/short-url.module';
+import { JwtStrategy } from './domain/strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ShortUrlModule } from './domain/short-url.module';
   ],
   providers: [
     AppConfigService,
+    JwtStrategy,
   ],
   exports: [
   ]

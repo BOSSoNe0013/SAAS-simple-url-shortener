@@ -59,7 +59,7 @@ export class ShortUrlService {
     await this.shortUrlRepository.increment({ id: shortUrlId }, "clicks", 1);
   }
 
-  async create(dto: CreateShortUrlDto): Promise<ShortUrl> {
+  async create(userId: string, dto: CreateShortUrlDto): Promise<ShortUrl> {
     let code: string;
     let exists: ShortUrl | undefined;
     do {
@@ -70,30 +70,59 @@ export class ShortUrlService {
       code,
       targetUrl: dto.targetUrl,
       expiresAt: dto.expiresAt,
+      ownerId: userId,
     });
     return this.shortUrlRepository.save(url);
   }
 
   async findAll(): Promise<ShortUrl[]> {
-    return this.shortUrlRepository.find({ relations: ["clickRecords"] });
+    return this.shortUrlRepository.find({ 
+      relations: ["clickRecords"]
+     });
+  }
+
+  async findAllForUser(userId: string): Promise<ShortUrl[]> {
+    return this.shortUrlRepository.find({ 
+      relations: ["clickRecords"],
+      where: {
+        ownerId: userId
+      }
+     });
   }
 
   async findOne(code: string): Promise<ShortUrl | null> {
-    return this.shortUrlRepository.findOne({ where: { code } });
+    return this.shortUrlRepository.findOne({ 
+      where: { 
+        code,
+      } 
+    });
+  }
+
+  async findOneForUser(userId: string, code: string): Promise<ShortUrl | null> {
+    return this.shortUrlRepository.findOne({ 
+      where: { 
+        code,
+        ownerId: userId, 
+      } 
+    });
   }
 
   async update(
+    userId: string, 
     code: string,
     dto: UpdateShortUrlDto,
   ): Promise<ShortUrl | undefined> {
-    const url = await this.findOne(code);
+    const url = await this.findOneForUser(userId, code);
     if (!url) return undefined;
     Object.assign(url, dto);
     return this.shortUrlRepository.save(url);
   }
 
-  async delete(code: string): Promise<boolean> {
-    const res = await this.shortUrlRepository.delete({ code });
+  async delete(userId: string, code: string): Promise<boolean> {
+    const res = await this.shortUrlRepository.delete({ 
+      code,
+      ownerId: userId, 
+    });
     return res.affected ? !!res.affected : false;
   }
 }

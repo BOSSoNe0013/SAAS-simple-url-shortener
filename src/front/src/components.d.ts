@@ -22,6 +22,7 @@ declare module 'vue' {
     UDashboardGroup: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/DashboardGroup.vue')['default']
     UDashboardPanel: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/DashboardPanel.vue')['default']
     UDashboardSidebar: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/DashboardSidebar.vue')['default']
+    UDashboardSidebarCollapse: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/DashboardSidebarCollapse.vue')['default']
     UForm: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Form.vue')['default']
     UFormField: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/FormField.vue')['default']
     UHeader: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Header.vue')['default']
@@ -29,7 +30,10 @@ declare module 'vue' {
     UMain: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Main.vue')['default']
     UNavigationMenu: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/NavigationMenu.vue')['default']
     UPage: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Page.vue')['default']
+    UPageBody: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/PageBody.vue')['default']
     UPageHeader: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/PageHeader.vue')['default']
+    UTable: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Table.vue')['default']
+    UTooltip: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Tooltip.vue')['default']
   }
 }
 
@@ -45,6 +49,7 @@ declare global {
   const UDashboardGroup: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/DashboardGroup.vue')['default']
   const UDashboardPanel: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/DashboardPanel.vue')['default']
   const UDashboardSidebar: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/DashboardSidebar.vue')['default']
+  const UDashboardSidebarCollapse: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/DashboardSidebarCollapse.vue')['default']
   const UForm: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Form.vue')['default']
   const UFormField: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/FormField.vue')['default']
   const UHeader: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Header.vue')['default']
@@ -52,5 +57,8 @@ declare global {
   const UMain: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Main.vue')['default']
   const UNavigationMenu: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/NavigationMenu.vue')['default']
   const UPage: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Page.vue')['default']
+  const UPageBody: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/PageBody.vue')['default']
   const UPageHeader: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/PageHeader.vue')['default']
+  const UTable: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Table.vue')['default']
+  const UTooltip: typeof import('./../node_modules/@nuxt/ui/dist/runtime/components/Tooltip.vue')['default']
 }
