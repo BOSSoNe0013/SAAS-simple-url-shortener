@@ -33,17 +33,19 @@ async function login() {
 </script>
 
 <template>
-  <UPage class="flex flex-col items-center justify-center h-screen">
-    <UCard class="w-full max-w-md p-4">
-      <h2 class="text-xl font-bold mb-4">Admin Login</h2>
-      <UInput v-model="username" label="Username" class="mb-4" />
-      <UInput
-        type="password"
-        v-model="password"
-        label="Password"
-        class="mb-4"
-      />
-      <UButton color="primary" @click="login">Login</UButton>
-    </UCard>
+  <UPage class="flex flex-col lg:flex">
+    <UPageBody class="flex items-center justify-center">
+      <UCard class="max-w-md p-4 mt-16 mx-8">
+        <h2 class="text-xl font-bold mb-4">Admin Login</h2>
+        <UInput v-model="username" label="Username" class="mb-4" />
+        <UInput
+          type="password"
+          v-model="password"
+          label="Password"
+          class="mb-4 mr-2"
+        />
+        <UButton color="primary" @click="login">Login</UButton>
+      </UCard>
+    </UPageBody>
   </UPage>
 </template>

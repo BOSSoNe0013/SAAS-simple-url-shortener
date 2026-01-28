@@ -3,6 +3,8 @@
 
 <template>
     <UPage>
-        
+        <UPageBody>
+            
+        </UPageBody>
     </UPage>
 </template>

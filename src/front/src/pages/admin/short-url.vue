@@ -12,7 +12,10 @@ import ShortUrlForm from '../../components/ShortUrlForm.vue';
         root: 'border-0'
       }"
     />
-    <ShortUrlForm />
+    <UPageBody>
+      <ShortUrlForm />
+    </UPageBody>
+    
   </UPage>
 </template>
 

@@ -41,7 +41,10 @@ const view = computed(() => {
 
 <template>
   <UDashboardGroup class="static">
-    <UDashboardSidebar collapsible class="h-full">
+    <UDashboardSidebar collapsible class="min-h-[calc(100vh-var(--ui-header-height))]">
+      <template #header="{ collapsed }">
+        <UDashboardSidebarCollapse variant="link" />
+      </template>
       <template #default="{ collapsed }">
         <ul class="flex flex-col gap-4 mx-0 px-0">
           <li v-for="p in pages">
@@ -56,10 +59,9 @@ const view = computed(() => {
                 color="neutral"
                 active-color="primary"
                 active-variant="outline"
-                class="flex items-center gap-2 px-3 py-2 w-full hover:cursor-pointer"
+                class="flex items-center gap-2 px-1.5 py-2 w-full hover:cursor-pointer"
                 :active="page === p.page"
               >
-                <i class="fa-solid fa-chart-diagram"></i>
                 <span :hidden="collapsed">{{ p.title }}</span>
               </UButton>
             </UTooltip>
@@ -67,7 +69,7 @@ const view = computed(() => {
         </ul>
       </template>
     </UDashboardSidebar>
-    <UDashboardPanel>
+    <UDashboardPanel class="min-h-fit">
         <template #body>
             <component :is="view" />
         </template>
