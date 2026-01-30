@@ -142,7 +142,7 @@ const isLoading = computed<boolean>(() => {
 </script>
 
 <template>
-  <UPage>
+<  <UPage>
     <UPageHeader title="Manage my short URLs" />
     <UPageBody>
       <UTable :data="store.list" :columns="columns" class="flex-1" :loading="isLoading" :meta="meta" >
