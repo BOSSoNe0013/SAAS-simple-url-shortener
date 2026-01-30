@@ -36,15 +36,18 @@ const useAPI = () => {
     try {
       return await api.post("/auth/logout");
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       return;
     }
   }
-  async function createShortURL(payload: {targetUrl: string, expiry?: string}) {
+  async function createShortURL(payload: {
+    targetUrl: string;
+    expiry?: string;
+  }) {
     try {
       return await api.post("/admin/short-urls", payload);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       return;
     }
   }
@@ -52,7 +55,7 @@ const useAPI = () => {
     try {
       return await api.get("/admin/short-urls");
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       return;
     }
   }
@@ -60,7 +63,7 @@ const useAPI = () => {
     try {
       return await api.get(`/admin/short-urls/${id}`);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       return;
     }
   }
@@ -68,19 +71,19 @@ const useAPI = () => {
     try {
       return await api.delete(`/admin/short-urls/${id}`);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       return;
     }
   }
-  async function getRedirectURL(code: string): Promise<string|undefined> {
+  async function getRedirectURL(code: string): Promise<string | undefined> {
     try {
       const resp = await api.get(`/${code}`);
-      if(resp.status === 200) return resp.data;
+      if (resp.status === 200) return resp.data;
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       return;
     }
-  };
+  }
   return {
     login,
     logout,
