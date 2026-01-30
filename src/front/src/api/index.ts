@@ -33,7 +33,12 @@ const useAPI = () => {
     return await api.post("/auth/login", { username, password });
   }
   async function logout() {
-    return await api.post("/auth/logout");
+    try {
+      return await api.post("/auth/logout");
+    } catch (error) {
+      console.error('Error:', error);
+      return;
+    }
   }
   async function createShortURL(payload: {targetUrl: string, expiry?: string}) {
     return await api.post("/admin/short-urls", payload);

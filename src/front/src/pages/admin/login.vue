@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import useAPI from "../../api";
 import { useAuthStore } from "../../store/auth";
 import { ref } from "vue";
 
 const auth = useAuthStore();
 const api = useAPI();
+const toast = useToast();
+const router = useRouter();
 
 // Load persisted token on init
 if (!auth.isAuthenticated) auth.loadPersisted();
@@ -15,13 +18,28 @@ const password = ref("");
 async function login() {
   try {
     const resp = await api.login(username.value, password.value);
-    if (!resp || resp.status !== 200) throw new Error("Login failed");
-    const jwt = resp.headers.getAuthorization?.toString(); // token returned in header
-    if (jwt) auth.setToken(jwt);
-    // Redirect to dashboard
-    window.location.href = "/admin";
+    if (!resp || resp.status !== 200 || !resp.headers.getAuthorization) throw new Error("Login failed");
+    const jwt = resp.headers.getAuthorization(); // token returned in header
+    if (jwt){
+      auth.setToken(jwt);
+      toast.add({
+          title: 'Logged in!',
+          icon: 'i-lucide-user'
+      });
+      // Redirect to dashboard
+      router.replace({
+        name: 'AdminDashboard'
+      });
+      return;
+    }
   } catch (err) {
     console.error(err);
+  } finally {
+    toast.add({
+        title: 'Login failed!',
+        icon: 'i-lucide-user',
+        color: 'error'
+    });
   }
 }
 </script>
