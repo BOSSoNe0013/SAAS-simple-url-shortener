@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { computed, Ref, ref } from "vue";
-import { RouterView, useRoute } from "vue-router";
+import { RouterView, useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "./store/auth";
+import useAPI from "./api";
 
 const route = useRoute();
+const router = useRouter();
 const auth = useAuthStore();
+const api = useAPI();
 
 const menuOpenState = ref<boolean>(false);
 const pages: Ref<{
@@ -44,6 +47,12 @@ const pages: Ref<{
   ];
 });
 const page = ref<'short-url'|'short-urls'|'account'>('short-url');
+
+const logout = async () => {
+  await api.logout();
+  auth.logout();
+  router.push({ name: 'AdminLogin'});
+};
 </script>
 
 <template>
@@ -63,7 +72,7 @@ const page = ref<'short-url'|'short-urls'|'account'>('short-url');
     >
       <template #right>
         <UColorModeButton />
-        <UButton v-if="auth.isAuthenticated" to="/admin/logout" icon="i-lucide-log-out" variant="outline" />
+        <UButton v-if="auth.isAuthenticated" @click="logout" icon="i-lucide-log-out" variant="outline" />
       </template>
       <template #body>
         <UNavigationMenu orientation="vertical" class="-mx-2.5" :items="pages">
