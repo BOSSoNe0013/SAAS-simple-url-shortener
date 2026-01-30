@@ -41,17 +41,46 @@ const useAPI = () => {
     }
   }
   async function createShortURL(payload: {targetUrl: string, expiry?: string}) {
-    return await api.post("/admin/short-urls", payload);
+    try {
+      return await api.post("/admin/short-urls", payload);
+    } catch (error) {
+      console.error('Error:', error);
+      return;
+    }
   }
   async function getShortURLs() {
-    return await api.get("/admin/short-urls");
+    try {
+      return await api.get("/admin/short-urls");
+    } catch (error) {
+      console.error('Error:', error);
+      return;
+    }
   }
   async function getShortURL(id: string) {
-    return await api.get(`/admin/short-urls/${id}`);
+    try {
+      return await api.get(`/admin/short-urls/${id}`);
+    } catch (error) {
+      console.error('Error:', error);
+      return;
+    }
   }
   async function deleteShortURL(id: string) {
-    return await api.delete(`/admin/short-urls/${id}`);
+    try {
+      return await api.delete(`/admin/short-urls/${id}`);
+    } catch (error) {
+      console.error('Error:', error);
+      return;
+    }
   }
+  async function getRedirectURL(code: string): Promise<string|undefined> {
+    try {
+      const resp = await api.get(`/${code}`);
+      if(resp.status === 200) return resp.data;
+    } catch (error) {
+      console.error('Error:', error);
+      return;
+    }
+  };
   return {
     login,
     logout,
@@ -59,6 +88,7 @@ const useAPI = () => {
     getShortURL,
     getShortURLs,
     deleteShortURL,
+    getRedirectURL,
   };
 };
 

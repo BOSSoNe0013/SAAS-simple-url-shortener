@@ -32,15 +32,15 @@ export class AppConfigService {
     }
 
     get port(): number {
-        return parseInt(this.config.get<string>('PORT')) ?? 5600;
+        return parseInt(this.config.get<string>('PORT', '5600')) ?? 5600;
     }
 
     get rateLimitCapacity(): number {
-        return parseInt(this.config.get<string>("RATE_LIMIT_CAPACITY")) ?? 60;
+        return parseInt(this.config.get<string>("RATE_LIMIT_CAPACITY", '60')) ?? 60;
     }
 
     get rateLimitWindowMs(): number {
-        return parseInt(this.config.get<string>("RATE_LIMIT_WINDOW_MS")) ?? 60000;
+        return parseInt(this.config.get<string>("RATE_LIMIT_WINDOW_MS", '60000')) ?? 60000;
     }
 
     get jwtSecret(): string {
