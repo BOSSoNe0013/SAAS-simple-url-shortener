@@ -105,8 +105,8 @@ async function handleCopy(code: string) {
                 </template>
                 <template #actions-cell="{ row }">
                     <div class="flex gap-2 justify-end">
-                        <UButton variant="ghost" icon="i-lucide-chart-line" class="hover:cursor-pointer"/>
-                        <UButton variant="ghost" icon="i-lucide-trash" class="hover:cursor-pointer" color="error"/>
+                        <UButton name="stats" variant="ghost" icon="i-lucide-chart-line" class="hover:cursor-pointer"/>
+                        <UButton name="delete" variant="ghost" icon="i-lucide-trash" class="hover:cursor-pointer" color="error"/>
                     </div>
                 </template>
             </UTable>
