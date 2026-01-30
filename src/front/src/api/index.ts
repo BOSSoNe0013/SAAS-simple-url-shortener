@@ -94,7 +94,7 @@ const useAPI = () => {
       console.error("Error:", error);
       return;
     }
-  }
+  };
   return {
     login,
     logout,
