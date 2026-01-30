@@ -71,6 +71,8 @@
     --catppiccin-color-text: #cdd6f4;
     --catppuccin-color-mantle: #181825;
     --catppuccin-color-crust: #11111b;
+    --catppuccin-color-surface0: #313244;
+    --catppuccin-color-overlay2: #9399b2;
 
     --ui-text-dimmed: var(--ui-color-neutral-400);
     --ui-text-muted: var(--ui-color-neutral-500);
