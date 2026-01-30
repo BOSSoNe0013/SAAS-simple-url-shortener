@@ -1,40 +1,15 @@
 <script lang="ts" setup>
 import { TableColumn } from '@nuxt/ui';
 import { useAuthStore } from '../../store/auth';
-import { onMounted, reactive, ref } from 'vue';
-import useAPI from '../../api';
+import { ref } from 'vue';
+import { ShortUrl, useShortUrlsStore } from '../../store/shortUrls';
 
-type Item = {
-    id: string,
-    code: string,
-    targetUrl: string,
-    createdAt: Date,
-    expiresAt: Date,
-    clicks: number
-}
-
-const data = reactive<Item[]>([]);
 const auth = useAuthStore();
 const toast = useToast();
-const api = useAPI();
+const store = useShortUrlsStore();
+store.fetchAll();
 
-const getUrls = async() => {
-    const res = await api.getShortURLs();
-    if (res.status !== 200) throw new Error(`HTTP ${res.status}`);
-    const items = res.data;
-    items.forEach((item: any) => {
-        data.push({
-            id: item.id,
-            code: item.code,
-            targetUrl: item.targetUrl,
-            createdAt: item.createdAt,
-            expiresAt: item.expiresAt,
-            clicks: item.clicks
-        });
-    });
-};
-
-const columns: TableColumn<Item>[] = [
+const columns: TableColumn<ShortUrl>[] = [
     {
         accessorKey: 'code',
         header: 'Code',
@@ -108,10 +83,6 @@ async function handleCopy(code: string) {
     error.value = "Failed to copy";
   }
 }
-
-onMounted(async () => {
-    await getUrls();
-});
 </script>
 
 <template>
@@ -120,7 +91,7 @@ onMounted(async () => {
             title="Manage my short URLs"
         />
         <UPageBody>
-            <UTable :data="data" :columns="columns" class="flex-1">
+            <UTable :data="store.list" :columns="columns" class="flex-1">
                 <template #code-cell="{ row }">
                     <div class="flex gap-2 items-center w-24 justify-between">
                         <span class="grow">{{ row.original.code }}</span>

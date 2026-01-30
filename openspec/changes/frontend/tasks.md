@@ -23,7 +23,7 @@
 - [x] `ShortUrlForm.vue` component.
 - [ ] `ShortUrlList.vue` component with `UTable`.
 - [ ] `ShortUrlCard.vue` for single URL view/edit.
-- [ ] Integration with `stores/shortUrls`.
+- [x] Integration with `stores/shortUrls`.
 - [x] Copy short URL to clipboard.
 
 ## 5. Account management
