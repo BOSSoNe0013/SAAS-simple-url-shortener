@@ -86,7 +86,7 @@ const logout = async () => {
     </UMain>
   </UApp>
   <UApp v-else>
-
+    <router-view />
   </UApp>
 </template>
 

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { ShortUrl } from "../entities/short-url.entity";
 import { CreateShortUrlDto } from "../dto/create-short-url.dto";
@@ -10,6 +10,8 @@ import { AppConfigService } from "../../config/services/config.service";
 
 @Injectable()
 export class ShortUrlService {
+  private readonly logger = new Logger(ShortUrlService.name);
+
   // Rate limiting bucket map
   private readonly rateBuckets = new Map<
     string,
@@ -30,10 +32,14 @@ export class ShortUrlService {
   }
 
   private refillBucket(ip: string) {
+    this.logger.log(`RATE_LIMIT_CAPACITY: ${this.RATE_LIMIT_CAPACITY}`);
+    this.logger.log(`RATE_LIMIT_WINDOW_MS: ${this.RATE_LIMIT_WINDOW_MS}`);
     const bucket = this.rateBuckets.get(ip) || {
       tokens: this.RATE_LIMIT_CAPACITY,
       lastRefill: Date.now(),
     };
+    this.logger.log(`${ip} -> tokens: ${bucket.tokens}`);
+    this.logger.log(`${ip} -> last refill: ${bucket.lastRefill}`);
     const now = Date.now();
     const elapsed = now - bucket.lastRefill;
     if (elapsed > this.RATE_LIMIT_WINDOW_MS) {

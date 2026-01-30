@@ -24,7 +24,7 @@
 - [ ] `ShortUrlList.vue` component with `UTable`.
 - [ ] `ShortUrlCard.vue` for single URL view/edit.
 - [ ] Integration with `stores/shortUrls`.
-- [ ] Copy short URL to clipboard.
+- [x] Copy short URL to clipboard.
 
 ## 5. Account management
 

@@ -1,7 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "../store/auth";
-import AdminLogin from "../pages/admin/login.vue";
-import Dashboard from "../pages/admin/dashboard.vue";
+const AdminLogin = () =>
+  import(/* webpackChunkName: "login" */ "../pages/admin/login.vue");
+const Dashboard = () =>
+  import(/* webpackChunkName: "dashboard" */ "../pages/admin/dashboard.vue");
+const ShortCode = () =>
+  import(/* webpackChunkName: "shortcode" */ "../pages/shortcode.vue");
 
 const routes = [
   {
@@ -17,6 +21,13 @@ const routes = [
     meta: { requiresAuth: true },
   },
   { path: "/", redirect: "/admin/login" },
+  {
+    path: "/:shortcode",
+    name: "ShortCode",
+    component: ShortCode,
+    props: true,
+    meta: { allowAnonymous: true, requireAdmin: false },
+  },
 ];
 
 const router = createRouter({
@@ -37,6 +48,7 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else {
+    console.log(to.fullPath, to.name);
     next();
   }
 });
