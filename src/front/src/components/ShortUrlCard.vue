@@ -31,12 +31,11 @@ const handleCopy = async () => {
 </script>
 
 <template>
-  <UCard class="p-4 max-w-4xl mx-auto bg-white rounded-lg shadow">
+  <UCard class="p-4 max-w-4xl mx-auto rounded-lg shadow">
     <div
       class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between"
     >
       <div class="flex flex-col gap-1">
-        <h3 class="text-lg font-semibold">{{ props.url.code }}</h3>
         <p class="text-sm text-muted-foreground">
           <span class="font-medium">Target URL: </span>
           <span class="break-all">{{ props.url.targetUrl }}</span>
@@ -90,15 +89,5 @@ const handleCopy = async () => {
       </div>
     </div>
     <hr class="my-3" />
-    <div class="flex justify-end gap-2">
-      <UButton variant="ghost" icon="i-lucide-chart-line" />
-      <UButton variant="ghost" icon="i-lucide-trash" color="error" />
-    </div>
   </UCard>
 </template>
-
-<style scoped>
-.text-muted-foreground {
-  color: #6b7280;
-}
-</style>
