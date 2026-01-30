@@ -4,6 +4,7 @@ import { AppConfigService } from '../../config/services/config.service';
 
 @Injectable()
 export class JwtGuard implements CanActivate {
+
   constructor(private readonly jwt: JwtService, private readonly config: AppConfigService) {}
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest();

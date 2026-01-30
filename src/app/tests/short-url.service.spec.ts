@@ -66,7 +66,7 @@ describe("ShortUrlService", () => {
       targetUrl: "https://example.com",
       expiresAt: undefined,
     };
-    const result = await service.create(dto);
+    const result = await service.create('aaa-bbb-ccc', dto);
     expect(shortUrlRepo.findOne).toHaveBeenCalledWith({
       where: { code: "ABC123" },
     });
@@ -134,7 +134,7 @@ describe("ShortUrlService", () => {
     const dto: UpdateShortUrlDto = { clicks: 1, expiresAt: undefined };
     (shortUrlRepo.findOne as jest.Mock).mockResolvedValue(existing);
     (shortUrlRepo.save as jest.Mock).mockImplementation((e: any) => e);
-    const result = await service.update("XYZ", dto);
+    const result = await service.update('aaa-bbb-ccc', "XYZ", dto);
     expect(result).toBe(existing);
     expect(existing).toMatchObject(dto);
     expect(shortUrlRepo.save).toHaveBeenCalledWith(existing);
@@ -142,7 +142,7 @@ describe("ShortUrlService", () => {
 
   it("returns undefined when updating non‑existent URL", async () => {
     (shortUrlRepo.findOne as jest.Mock).mockResolvedValue(undefined);
-    const result = await service.update("NON", {
+    const result = await service.update('aaa-bbb-ccc', "NON", {
       clicks: 1,
       expiresAt: undefined,
     } as any);
@@ -153,13 +153,13 @@ describe("ShortUrlService", () => {
     (shortUrlRepo.delete as jest.Mock).mockResolvedValue({
       affected: 1,
     } as any);
-    const res = await service.delete("XYZ");
+    const res = await service.delete('aaa-bbb-ccc', "XYZ");
     expect(res).toBe(true);
-    expect(shortUrlRepo.delete).toHaveBeenCalledWith({ code: "XYZ" });
+    expect(shortUrlRepo.delete).toHaveBeenCalledWith({ code: "XYZ", ownerId: "aaa-bbb-ccc" });
     (shortUrlRepo.delete as jest.Mock).mockResolvedValue({
       affected: 0,
     } as any);
-    const res2 = await service.delete("XYZ");
+    const res2 = await service.delete('aaa-bbb-ccc', "XYZ");
     expect(res2).toBe(false);
   });
 
