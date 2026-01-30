@@ -1,0 +1,91 @@
+@layer base, components, utilities, theme, fonts, consent;
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import "@catppuccin/tailwindcss/mocha.css";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@plugin "@tailwindcss/forms";
+
+:root {
+    --ui-color-primary:     var(--catppuccin-color-mauve);
+    --ui-color-primary-50:  var(--catppuccin-color-mauve-50);
+    --ui-color-primary-100: var(--catppuccin-color-mauve-100);
+    --ui-color-primary-200: var(--catppuccin-color-mauve-200);
+    --ui-color-primary-300: var(--catppuccin-color-mauve-300);
+    --ui-color-primary-400: var(--catppuccin-color-mauve-400);
+    --ui-color-primary-500: var(--catppuccin-color-mauve-500);
+    --ui-color-primary-600: var(--catppuccin-color-mauve-600);
+    --ui-color-primary-700: var(--catppuccin-color-mauve-700);
+    --ui-color-primary-800: var(--catppuccin-color-mauve-800);
+    --ui-color-primary-900: var(--catppuccin-color-mauve-900);
+    --ui-color-primary-950: var(--catppuccin-color-mauve-950);
+
+    --ui-color-secondary:     var(--catppuccin-color-lavender);
+    --ui-color-secondary-50:  var(--catppuccin-color-lavender-50);
+    --ui-color-secondary-100: var(--catppuccin-color-lavender-100);
+    --ui-color-secondary-200: var(--catppuccin-color-lavender-200);
+    --ui-color-secondary-300: var(--catppuccin-color-lavender-300);
+    --ui-color-secondary-400: var(--catppuccin-color-lavender-400);
+    --ui-color-secondary-500: var(--catppuccin-color-lavender-500);
+    --ui-color-secondary-600: var(--catppuccin-color-lavender-600);
+    --ui-color-secondary-700: var(--catppuccin-color-lavender-700);
+    --ui-color-secondary-800: var(--catppuccin-color-lavender-800);
+    --ui-color-secondary-900: var(--catppuccin-color-lavender-900);
+    --ui-color-secondary-950: var(--catppuccin-color-lavender-950);
+
+    --ui-color-neutral:     var(--catppuccin-color-mantle);
+    --ui-color-neutral-50:  hsl(from var(--catppuccin-color-mantle) h s 95%);
+    --ui-color-neutral-100: hsl(from var(--catppuccin-color-mantle) h s 90%);
+    --ui-color-neutral-200: hsl(from var(--catppuccin-color-mantle) h s 80%);
+    --ui-color-neutral-300: hsl(from var(--catppuccin-color-mantle) h s 70%);
+    --ui-color-neutral-400: hsl(from var(--catppuccin-color-mantle) h s 60%);
+    --ui-color-neutral-500: hsl(from var(--catppuccin-color-mantle) h s 50%);
+    --ui-color-neutral-600: hsl(from var(--catppuccin-color-mantle) h s 40%);
+    --ui-color-neutral-700: hsl(from var(--catppuccin-color-mantle) h s 30%);
+    --ui-color-neutral-800: hsl(from var(--catppuccin-color-mantle) h s 20%);
+    --ui-color-neutral-900: hsl(from var(--catppuccin-color-mantle) h s 10%);
+    --ui-color-neutral-950: hsl(from var(--catppuccin-color-mantle) h s 5%);
+
+    --ui-primary: var(--ui-color-primary-500);
+    --ui-secondary: var(--ui-color-secondary-500);
+    --ui-success: var(--catppuccin-color-green-500);
+    --ui-info: var(--catppuccin-color-teal-500);
+    --ui-warning: var(--catppuccin-color-peach-500);
+    --ui-error: var(--catppuccin-color-red-500);
+
+    --ui-text-dimmed: var(--ui-color-neutral-400);
+    --ui-text-muted: var(--ui-color-neutral-500);
+    --ui-text-toned: var(--ui-color-neutral-600);
+    --ui-text: var(--catppuccin-color-text);
+    --ui-text-highlighted: var(--ui-color-neutral-900);
+    --ui-text-inverted: var(--ui-color-neutral-100);
+
+    --ui-bg: var(--catppuccin-color-base);
+    --ui-bg-muted: var(--catppuccin-color-mantle);
+    --ui-bg-elevated: var(--catppuccin-color-surface1);
+    --ui-bg-accented: var(--catppuccin-color-lavender);
+    --ui-bg-inverted: var(--catppuccin-color-overlay1);
+}
+
+.dark {
+    --catppiccin-color-text: #cdd6f4;
+    --catppuccin-color-mantle: #181825;
+    --catppuccin-color-crust: #11111b;
+    --catppuccin-color-surface0: #313244;
+    --catppuccin-color-overlay2: #9399b2;
+
+    --ui-text-dimmed: var(--ui-color-neutral-400);
+    --ui-text-muted: var(--ui-color-neutral-500);
+    --ui-text-toned: var(--ui-color-neutral-600);
+    --ui-text: var(--catppuccin-color-text);
+    --ui-text-highlighted: var(--ui-color-neutral-300);
+    --ui-text-inverted: var(--ui-color-neutral-900);
+
+    --ui-bg: var(--catppuccin-color-crust);
+    --ui-bg-muted: var(--catppuccin-color-base);
+    --ui-bg-elevated: var(--catppuccin-color-surface0);
+    --ui-bg-accented: var(--catppuccin-color-lavender);
+    --ui-bg-inverted: var(--catppuccin-color-overlay2);
+
+}
+

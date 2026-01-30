@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
@@ -8,6 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
   constructor(
     @InjectRepository(User)
     private readonly repo: Repository<User>,
@@ -26,6 +27,9 @@ export class AuthService {
     const user = await this.validate(username, password);
     if (!user) throw new UnauthorizedException('Invalid credentials');
     const payload = { sub: user.id, username: user.username, role: user.role };
-    return { accessToken: this.jwt.sign(payload, { secret: this.config.jwtSecret }) };
+    const accessToken = this.jwt.sign(payload, { secret: this.config.jwtSecret });
+    this.logger.log(`Payload: ${JSON.stringify(payload)}`);
+    this.logger.log(`Access Token: ${JSON.stringify(accessToken)}`, );
+    return { accessToken };
   }
 }

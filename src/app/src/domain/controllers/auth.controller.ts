@@ -10,6 +10,9 @@ export class AuthController {
   @Post('login')
   async login(@Body() dto: LoginDto, @Res() res: Response) {
     const { accessToken } = await this.authService.login(dto.username, dto.password);
-    return res.status(HttpStatus.OK).json({ accessToken });
+    return res
+      .status(HttpStatus.OK)
+      .setHeader('Authorization', accessToken)
+      .json({ accessToken });
   }
 }
