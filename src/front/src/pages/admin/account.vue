@@ -78,9 +78,9 @@ async function onSubmit() {
               required
             />
           </div>
-          <UBtton type="submit" class="px-4 py-2 bg-primary text-white rounded">
+          <UButton type="submit" class="px-4 py-2 bg-primary text-white rounded">
             Submit
-          </UBtton>
+          </UButton>
         </form>
       </UCard>
     </UPageBody>
