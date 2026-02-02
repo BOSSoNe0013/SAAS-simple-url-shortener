@@ -13,7 +13,7 @@ async function bootstrap() {
   if(config.env === 'development') {
     app.use(requestLogger);
   }
-  const port = config.port + 1;
+  const port = config.port;
   await app.listen(port);
   logger.log(`Backend listening on http://localhost:${port}`);
   logger.log(`API Documentation: http://localhost:${port}/docs`);

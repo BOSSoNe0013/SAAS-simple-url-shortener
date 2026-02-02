@@ -18,8 +18,8 @@ export class AppConfigService {
   } {
     return {
       name: this.config.get<string>("DATABASE_NAME") ?? "url_shortener",
-      host: this.config.get<string>("DATABASE_HOST") ?? "localhost",
-      port: this.config.get<number>("DATABASE_PORT") ?? 5432,
+      host: this.env === 'development' ? 'localhost' : this.config.get<string>("DATABASE_HOST") ?? "localhost",
+      port: parseInt(this.config.get<string>("DATABASE_PORT") ?? "5432"),
       username: this.config.get<string>("DATABASE_USERNAME") ?? "postgres",
       password: this.config.get<string>("DATABASE_PASSWORD") ?? "password",
     };
@@ -30,7 +30,7 @@ export class AppConfigService {
   }
 
   get port(): number {
-    return parseInt(this.config.get<string>("PORT") ?? "5600");
+    return 5601;
   }
 
   get rateLimitCapacity(): number {
@@ -54,7 +54,7 @@ export class AppConfigService {
 
   get defaultAdminPassword(): string {
     return (
-      this.config.get<string>("ADMIN_password") ??
+      this.config.get<string>("ADMIN_PASSWORD") ??
       "Please change this password immediately"
     );
   }

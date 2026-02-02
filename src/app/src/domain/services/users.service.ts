@@ -1,10 +1,9 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { InjectRepository, TypeOrmDataSourceFactory, TypeOrmModule } from "@nestjs/typeorm";
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "../entities/user.entity";
 import { Repository } from "typeorm";
 import { AppConfigService } from "../../config/services/config.service";
 import * as bcrypt from 'bcrypt';
-import { DomainModule } from "../domain.module";
 
 @Injectable()
 export class UsersService {
@@ -42,5 +41,12 @@ export class UsersService {
       }
     });
   }
-
+  async changePassword(userId: string, oldPassword: string, newPassword: string): Promise<void> {
+    const user = await this.repo.findOne({ where: { id: userId } });
+    if (!user) throw new UnauthorizedException('User not found');
+    const matches = await bcrypt.compare(oldPassword, user.passwordHash);
+    if (!matches) throw new UnauthorizedException('Old password mismatch');
+    user.passwordHash = await bcrypt.hash(newPassword, 12);
+    await this.repo.save(user);
+  }
 }

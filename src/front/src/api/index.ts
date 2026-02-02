@@ -34,7 +34,18 @@ const useAPI = () => {
   }
   async function logout() {
     try {
-      return await api.post("/auth/logout");
+      return await api.get("/auth/logout");
+    } catch (error) {
+      console.error("Error:", error);
+      return;
+    }
+  }
+  async function changePassword(oldPassword: string, newPassword: string) {
+    try {
+      return await api.put("/admin/change-password", {
+        oldPassword,
+        newPassword,
+      });
     } catch (error) {
       console.error("Error:", error);
       return;
@@ -92,6 +103,7 @@ const useAPI = () => {
     getShortURLs,
     deleteShortURL,
     getRedirectURL,
+    changePassword,
   };
 };
 
