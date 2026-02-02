@@ -1,83 +1,94 @@
 <!-- OPENSPEC:START -->
-# OpenSpec Instructions
+# OpenSpec Agent Instructions
 
-These instructions are the central knowledge base for all AI assistants running in this repository.  The file is ~150 lines long and covers commands, style guides, dependency management, cursor/copilot rules, and test utilities.
+This file is the central reference for AI coding assistants working in this repository. It compiles important commands, styling rules, and project conventions that agents must follow when reading, writing, or testing code.
 
 ---
 
-## 1. Project Commands
+## 1. Build / Lint / Test Commands
 
-| Purpose | Command | Notes |
-|---------|---------|-------|
-| Install dependencies | `npm ci` | Uses `package-lock.json`; keep in sync with Dockerfile.
-| Start dev servers (backend + frontend) | `npm run dev` | Starts NestJS (`start:dev`) and Vite dev server (`frontend:dev`). |
-| Build all artifacts | `npm run build` | Builds NestJS (`build`) and Vite (`frontend:build`). |
-| Run Docker compose locally | `docker compose up -d` | Creates DB, backend, and frontend containers.
-| Run single backend test by file | `npx jest <path/to/__tests__/foo.spec.ts>` | Useful for quick test debugging. |
-| Run single frontend test by component | `npx vitest <path/to/__tests__/Bar.spec.ts>` | Runs Vitest on a single file. |
-| Lint all code | `npm run lint` | Invokes ESLint + Prettier. |
-| Format code | `npm run format` | Runs Prettier in fix mode. |
-| Type‑check + compile project | `npm run type-check` | Runs `tsc --noEmit`. |
-| Docker build image | `docker build -t b1shortener:latest .` | Builds the multi‑stage Dockerfile. |
-| Run integration tests in Docker | `docker compose -f docker-compose.test.yml up --abort-on-container-exit` | Uses a special test Compose file. |
+| Purpose                                | Command                                                                  | Notes                                                                    |
+| -------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| Install dependencies                   | `npm ci`                                                                 | Uses the lockfile; keep in sync with Dockerfile.                         |
+| Start dev servers (backend + frontend) | `npm run dev`                                                            | Starts NestJS (`start:dev`) and Vite (`frontend:dev`).                   |
+| Build all artifacts                    | `npm run build`                                                          | Builds NestJS (`build`) and Vite (`frontend:build`).                     |
+| Single backend test file               | `npx jest <path/to/__tests__/foo.spec.ts>`                               | Replace path; can also use `npm run test:backend -- <path>` if defined.  |
+| Single frontend test component         | `npx vitest <path/to/__tests__/Bar.test.ts>`                             | Replace path; can also use `npm run test:frontend -- <path>` if defined. |
+| Lint all code                          | `npm run lint`                                                           | Runs ESLint + Prettier.                                                  |
+| Format code                            | `npm run format`                                                         | Prettier in fix mode.                                                    |
+| Type‑check & compile                   | `npm run type-check`                                                     | Runs `tsc --noEmit`.                                                     |
+| Docker build image                     | `docker build -t b1shortener:latest .`                                   | Build multi‑stage Dockerfile.                                            |
+| Docker compose local                   | `docker compose up -d`                                                   | Starts DB, backend, frontend containers.                                 |
+| Docker integration tests               | `docker compose -f docker-compose.test.yml up --abort-on-container-exit` | Uses test Compose file.                                                  |
 
 ---
 
 ## 2. Code Style & Linting
 
 ### Imports
-* Group external imports, then internal relative imports.
-* Sort alphabetically, except `* as X` is last.
-* Use absolute imports for modules in `src/**` with `baseUrl` set to `.` in `tsconfig.json`.
+
+- External imports first, internal imports later.
+- Alphabetically sorted, except `* as X` comes last.
+- Absolute imports for `src/**` modules using `baseUrl: '.'` in `tsconfig.json`.
+- No cyclic re‑exports; keep import paths simple.
 
 ### Formatting
-* Prettier: 2 space indentation, single quotes, trailing commas where applicable (ES5/ES6).
-* Files must end with a newline.
+
+- Prettier: 2‑space indentation, single quotes, trailing commas where applicable.
+- Each file must terminate with a final newline.
+- Use `npm run format` to automatically fix violations.
 
 ### TypeScript
-* Use `strict` mode (`noImplicitAny` etc).
-* Prefer `const` over `let` when reassignment never occurs.
-* Never use the `any` type; if impossible, cast to `unknown` first.
-* Interface names start with `I` (`IUserDto`).
+
+- Keep `strict` mode enabled.
+- Prefer `const` over `let` unless reassignment is needed.
+- Avoid `any`; if unavoidable, cast to `unknown` first.
+- Interfaces start with `I` (e.g., `IUserDto`).
+- Keep function signatures explicit; avoid implicit `any` types.
 
 ### Naming
-* Variables & function names: `camelCase`.
-* Classes & interfaces: `PascalCase`.
-* Constants: `SCREAMING_SNAKE_CASE`.
-* Enum members: `UPPER_SNAKE_CASE`.
+
+- Variables & functions: `camelCase`.
+- Classes & interfaces: `PascalCase`.
+- Constants: `SCREAMING_SNAKE_CASE`.
+- Enum members: `UPPER_SNAKE_CASE`.
+- Use descriptive names; avoid cryptic abbreviations.
 
 ### Error Handling
-* Throw custom `AppError` (see `common/exceptions/app-error.ts`).
-* Use `try/catch` in async flows; log the error with `AppLogger`.
-* No `Error` swallowed silently; always re‑throw or convert.
 
-### Testing
-* Backend tests use Jest; test files end with `.spec.ts` and are placed under `src/**/__tests__`.
-* Frontend tests use Vitest; test files end with `.spec.ts` or `.test.ts`.
-* Use `jest-mock-extended` for mocking services.
-* No `console.log` in production; tests may use `console.warn` for debugging.
+- Throw custom `AppError` (see `common/exceptions/app-error.ts`).
+- Wrap async flows in `try/catch`; log via `AppLogger`.
+- Never swallow errors silently; always re‑throw or transform.
+
+### Logging & Console
+
+- No `console.log` in production.
+- `console.warn` may be used in tests for debugging.
+- Prefer structured logging via `AppLogger` in production code.
 
 ---
 
 ## 3. Dependency Management
 
-* All dependencies are pinned in `package-lock.json` (npm) or `yarn.lock` if used.
-* Use `npm ci` to install exactly the locked versions.
-* For new dependencies, run `npm i <pkg>` then commit both `package.json` and lock file.
-* Version ranges should be `^` for patch upgrades and `~` only if the package has breaking changes.
+- Dependencies are pinned in `package-lock.json`.
+- Install exact versions with `npm ci`.
+- When adding a new package: `npm i <pkg>` followed by `git add package.json package-lock.json`.
+- Use compatible semver ranges: `^` for patch upgrades; `~` only for breaking changes.
 
 ---
 
 ## 4. Openspec Rules
 
-Read rules in `openspec/AGENTS.md`
+- Specifications live in `openspec/specs/` and represent the current truth.
+- Proposals reside in `openspec/changes/`; each change has `proposal.md`, `tasks.md`, optionally `design.md` and delta `specs/`.
+- Use `openspec validate <id> --strict` to ensure proposals are correct before merging.
 
 ---
 
 ## 5. Cursor Rules
 
-Cursor integration is optional.  If a `.cursor` directory exists with a `rules.json` file, follow those rules.
-If not present, this project uses the cursor default of:
+If a `.cursor/rules.json` exists, it governs the cursor scope. Otherwise the repository uses the following default:
+
 ```json
 {
   "scope": "typescript, vue",
@@ -89,34 +100,39 @@ If not present, this project uses the cursor default of:
 
 ## 6. Copilot Rules
 
-No dedicated Copilot config file is available.  Copilot may be enabled, but developers are encouraged to review suggested snippets against the style guide above.
+- No dedicated Copilot configuration file.
+- Copilot suggestions must be reviewed against the style guide above.
+- Prefer self‑explanatory code; avoid over‑reliance on Copilot for critical logic.
 
 ---
 
 ## 7. Docker & CI
 
-* Docker Compose uses a multi‑stage build; the `backend` stage installs dependencies and builds NestJS.
-* The CI pipeline (GitHub Actions) mirrors the `npm test` and `docker compose` steps, ensuring style and tests pass before merge.
+- Docker Compose uses a multi‑stage build: `backend` stage installs dependencies and builds NestJS.
+- The CI pipeline runs `npm test` and the Docker Compose test steps to ensure style and tests pass.
 
 ---
 
 ## 8. Miscellaneous
 
-* All repository secrets (e.g., DATABASE_URL, JWT_SECRET) must be stored in a .env file or GitHub Actions secrets.
-* Database migrations use TypeORM `ormconfig.json`; run `npm run migration:run` to apply.
-* For local development, create a `.env.local` mirroring `.env` without secrets.
+- Repository secrets (e.g., `DATABASE_URL`, `JWT_SECRET`) reside in `.env` or GitHub Actions secrets.
+- TypeORM migrations use `ormconfig.json`; apply with `npm run migration:run`.
+- For local dev, create a `.env.local` mirroring `.env` without secrets.
 
 ---
 
 ## 9. How to Use This File
 
-AI agents should reference this file whenever they need to know:
-* How to run, lint, test, or build the project.
-* Naming conventions and style rules to follow.
-* Which directories or files are generated or managed by tools.
+AI agents should reference this file whenever they need:
+
+- How to run, lint, test, or build the project.
+- The naming conventions and style rules.
+- Locations of generated files or tooling‑managed artifacts.
 
 When in doubt, refer back to the sections above.
 
 ---
+
+_End of AGENTS.md_
 
 <!-- OPENSPEC:END -->
