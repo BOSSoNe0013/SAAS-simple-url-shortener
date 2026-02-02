@@ -29,10 +29,10 @@ export default defineConfig(({mode}) => {
         'short.b1project.com'
       ],
       host: '0.0.0.0',
-      port: process.env.PORT,
+      port: process.env.NODE_ENV === 'development' ? parseInt(process.env.FRONTEND_PORT ?? '80') : 80,
       proxy: {
         "/api/v1": {
-          target: `http://localhost:${parseInt(process.env.PORT ?? '5600') + 1}/`,
+          target: process.env.NODE_ENV === 'development' ? `http://localhost:${process.env.PORT ?? '5601'}/` : process.env.BACKEND_URL ?? `http://localhost:${process.env.PORT ?? '5601'}/`,
           changeOrigin: true,
           rewrite : (path) => path.replace(/^\/api\/v1/, '')
         },
@@ -43,7 +43,7 @@ export default defineConfig(({mode}) => {
       },
     },
     preview: {
-      port: parseInt(process.env.PORT ?? '5600') + 2,
+      port: 5602,
     },
   }
 });

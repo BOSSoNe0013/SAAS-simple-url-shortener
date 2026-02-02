@@ -24,8 +24,11 @@ export class DatabaseFactory implements TypeOrmOptionsFactory {
       password: this.config.database.password,
       database: this.config.database.name,
       entities: [__dirname + "/../entities/*.entity{.ts,.js}"],
+      autoLoadEntities: true,
       synchronize: this.config.env !== "production",
       logging: this.config.env === "development",
+      migrations: ['dist/config/migration/*{.ts,.js}'],
+      migrationsRun: true,
     };
   }
 }

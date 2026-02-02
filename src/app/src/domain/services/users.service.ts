@@ -4,7 +4,6 @@ import { User } from "../entities/user.entity";
 import { Repository } from "typeorm";
 import { AppConfigService } from "../../config/services/config.service";
 import * as bcrypt from 'bcrypt';
-import { DomainModule } from "../domain.module";
 
 @Injectable()
 export class UsersService {

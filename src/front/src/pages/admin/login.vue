@@ -16,11 +16,13 @@ const username = ref("");
 const password = ref("");
 
 async function login() {
+  let error = true;
   try {
     const resp = await api.login(username.value, password.value);
     if (!resp || resp.status !== 200 || !resp.headers.getAuthorization) throw new Error("Login failed");
     const jwt = resp.headers.getAuthorization(); // token returned in header
-    if (jwt){
+    if (jwt && jwt.length > 0){
+      error = false;
       auth.setToken(jwt);
       toast.add({
           title: 'Logged in!',
@@ -35,11 +37,13 @@ async function login() {
   } catch (err) {
     console.error(err);
   } finally {
-    toast.add({
-        title: 'Login failed!',
-        icon: 'i-lucide-user',
-        color: 'error'
-    });
+    if(error) {
+      toast.add({
+          title: 'Login failed!',
+          icon: 'i-lucide-user',
+          color: 'error'
+      });
+    }
   }
 }
 </script>

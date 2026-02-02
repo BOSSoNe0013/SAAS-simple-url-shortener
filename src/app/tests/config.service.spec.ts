@@ -69,9 +69,9 @@ describe("AppConfigService", () => {
     expect(configService.port).toBe(8080);
   });
 
-  it("falls back to 5600 when PORT not set", () => {
+  it("falls back to 5601 when PORT not set", () => {
     const instance = new AppConfigService(emptyMock as any);
-    expect(instance.port).toBe(5600);
+    expect(instance.port).toBe(5601);
   });
 
   it("returns jwtSecret", () => {
