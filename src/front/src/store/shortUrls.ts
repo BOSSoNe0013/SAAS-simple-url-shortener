@@ -2,6 +2,12 @@ import { defineStore } from "pinia";
 import { ref, computed, type Ref } from "vue";
 import useAPI from "../api";
 
+
+export interface ClickRecord {
+  id: string;
+  ipAddress: string;
+  timestamp: string;
+}
 export interface ShortUrl {
   id: string;
   code: string;
@@ -9,6 +15,7 @@ export interface ShortUrl {
   expiry?: string;
   clicks?: number;
   createdAt?: string;
+  clickRecords?: ClickRecord[];
 }
 const api = useAPI();
 
@@ -30,6 +37,7 @@ export const useShortUrlsStore = defineStore("shortUrls", () => {
         expiry: item.expiry,
         clicks: item.clicks,
         createdAt: item.createdAt,
+        clickRecords: item.clickRecords,
       }));
     } catch (e: any) {
       error.value = e.message;

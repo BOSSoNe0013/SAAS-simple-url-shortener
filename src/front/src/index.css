@@ -65,6 +65,14 @@
     --ui-bg-elevated: var(--catppuccin-color-surface1);
     --ui-bg-accented: var(--catppuccin-color-lavender);
     --ui-bg-inverted: var(--catppuccin-color-overlay1);
+
+    --vis-color-main: var(--ui-color-primary) !important;
+    --vis-color-main-light: var(--ui-color-primary-200) !important;
+    --vis-color-main-dark: var(--ui-color-primary-900) !important;
+    --vis-color-grey: var(--ui-color-neutral) !important;
+    --vis-axis-grid-color: var(--catppuccin-color-surface0) !important;
+    --vis-axis-tick-color: var(--catppuccin-color-surface0) !important;
+    --vis-color0: var(--catppuccin-color-mauve) !important;
 }
 
 .dark {

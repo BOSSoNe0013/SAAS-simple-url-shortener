@@ -4,7 +4,8 @@
     "description": "B1Shortener SaaS platform",
     "author": "The B1 Project Team",
     "workspaces": [
-        "src/app"
+        "src/app",
+        "src/front"
     ],
     "scripts": {
         "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
@@ -13,10 +14,12 @@
         "build": "npm run build:backend && npm run build:frontend",
         "build:backend": "cd src/app && npm run build",
         "build:frontend": "cd src/front && npm run build",
-        "test": "npm run test:backend",
+        "test": "npm run test:backend && npm run test:frontend",
         "test:backend": "cd src/app && npm run test",
+        "test:frontend": "cd src/front && npm run test",
         "test:cov": "npm run test:backend:cov",
         "test:backend:cov": "cd src/app && npm run test:cov",
+        "migration:create": "cd src/app && npm run migration:create",
         "migration:generate": "cd src/app && npm run migration:generate",
         "migration:run": "cd src/app && npm run migration:run",
         "migration:revert": "cd src/app && npm run migration:revert",

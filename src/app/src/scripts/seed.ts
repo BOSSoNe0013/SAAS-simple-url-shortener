@@ -1,6 +1,5 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "../app.module";
-import * as bcrypt from "bcrypt";
 import { UsersService } from "../domain/services/users.service";
 import { AppConfigService } from "../config/services/config.service";
 
