@@ -20,8 +20,9 @@ async function login() {
   try {
     const resp = await api.login(username.value, password.value);
     if (!resp || resp.status !== 200 || !resp.headers.getAuthorization) throw new Error("Login failed");
+    if(typeof resp.headers.getAuthorization !== 'function') return;
     const jwt = resp.headers.getAuthorization(); // token returned in header
-    if (jwt && jwt.length > 0){
+    if (jwt && jwt.length > 0 && typeof jwt === 'string'){
       error = false;
       auth.setToken(jwt);
       toast.add({
