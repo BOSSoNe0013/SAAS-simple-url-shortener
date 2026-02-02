@@ -1,7 +1,9 @@
-import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus, UseGuards, Get } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { LoginDto } from '../dto/login.dto';
 import { Response } from 'express';
+import { GetUser } from '../decorators/user.decorator';
+import { JwtGuard } from '../guards/jwt.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -14,5 +16,11 @@ export class AuthController {
       .status(HttpStatus.OK)
       .setHeader('Authorization', accessToken)
       .json({ accessToken });
+  }
+  
+  @UseGuards(JwtGuard)
+  @Get('logout')
+  async logout(@GetUser() user:any) {
+    return { success: true };
   }
 }

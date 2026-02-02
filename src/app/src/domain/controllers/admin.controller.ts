@@ -16,22 +16,22 @@ import { ChangePasswordDto } from "../dto/change-password.dto";
 import { UpdateShortUrlDto } from "../dto/update-short-url.dto";
 import { GetUser } from "../decorators/user.decorator";
 
-@Controller("admin/short-urls")
+@Controller("admin")
 @UseGuards(JwtGuard)
 export class AdminController {
   constructor(
     private readonly svc: ShortUrlService,
     private readonly usersSvc: UsersService,
   ) {}
-  @Post()
+  @Post("short-urls")
   async create(@GetUser() user: any, @Body() dto: CreateShortUrlDto) {
     return this.svc.create(user.sub, dto);
   }
-  @Get()
+  @Get("short-urls")
   async findAll(@GetUser() user: any) {
     return this.svc.findAllForUser(user.sub);
   }
-  @Put(":code")
+  @Put("short-urls/:code")
   async update(
     @GetUser() user: any,
     @Param("code") code: string,
@@ -39,7 +39,7 @@ export class AdminController {
   ) {
     return this.svc.update(user.sub, code, dto);
   }
-  @Delete(":code")
+  @Delete("short-urls/:code")
   async delete(@GetUser() user: any, @Param("code") code: string) {
     return { success: await this.svc.delete(user.sub, code) };
   }
