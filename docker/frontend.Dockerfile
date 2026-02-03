@@ -17,7 +17,7 @@ RUN npm run build:frontend
 USER nestjs
 # Production image
 FROM nginx:stable-alpine
-COPY --from=build --chown=nginx:nginx /usr/src/app/src/front/dist /usr/share/nginx/html
+COPY --from=build --chown=nginx:nginx /usr/src/app/src/front/dist /usr/share/nginx/html/admin
 COPY ./src/front/nginx.conf /etc/nginx/nginx.conf
 # Expose port
 EXPOSE 80
