@@ -57,6 +57,6 @@ export class RedirectController {
     }
     await this.svc.recordClick(url.id, ip);
     this.logger.log(`Target URL: ${url.targetUrl}`);
-    return url.targetUrl;
+    return res.redirect(302, url.targetUrl);
   }
 }
