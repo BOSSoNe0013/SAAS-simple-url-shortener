@@ -41,7 +41,7 @@
 ## 7. Short code redirection
 
 - [x] Request to `/<CODE>` must check if short code exist, retrieve target URL then redirect.
-- [ ] Redirect to target page using `302` HTTP code.
+- [x] Redirect to target page using `302` HTTP code.
 
 ## 8. Styling & UX
 

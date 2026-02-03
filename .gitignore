@@ -7,3 +7,4 @@ src/*/coverage
 .vscode
 .opencode_env
 src/app/tsconfig.tsbuildinfo
+.bin
