@@ -47,7 +47,7 @@ export class RedirectController {
     const url = await this.svc.findOne(code);
     if (!url || (url.expiresAt && url.expiresAt < new Date())) {
       this.logger.warn(`Attempt to use invalid or expired code ${code}`);
-      throw new HttpException('Invalid code', 404);
+      throw new HttpException("Invalid code", 404);
     }
     // rate limit per IP
     const ip = req.ip;
@@ -57,6 +57,6 @@ export class RedirectController {
     }
     await this.svc.recordClick(url.id, ip);
     this.logger.log(`Target URL: ${url.targetUrl}`);
-    return url.targetUrl;
+    return res.redirect(302, url.targetUrl);
   }
 }
