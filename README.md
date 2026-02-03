@@ -41,16 +41,42 @@ npm run build
 
 The compiled JavaScript for the backend lives in `app/dist` while the frontend bundle is output to `frontend/dist`.
 
+## Environment variables
+
+Store envoronment variables in `.env` file at project root level:
+
+```bash
+PORT=5601
+FRONTEND_PORT=5600
+ADMIN_PASSWORD="my_secure_admin_password"
+
+DATABASE_NAME="url_shortener"
+DATABASE_PASSWORD='my_secure_database_password'
+DATABASE_USERNAME="my_db_username"
+DATABASE_HOST=db
+DATABASE_PORT=5432
+
+BACKEND_URL='http://the_backend_url' # Use `backend` when running in a docker container
+FRONTEND_URL="http://my_frontend_url.com"
+
+JWT_SECRET=default_key
+
+
+VITE_DOMAIN="my_domain.com"
+VITE_APP_NAME="B1Shortener"
+VITE_FRONTEND_URL="https://my_frontend_url.com"
+```
+
 ## Docker Images
 
 Images are built with multi‑stage Dockerfiles.
 
 ```bash
 # Build only the backend image
-docker build -t b1shortener-backend:latest -f docker/backend.Dockerfile .
+docker build -t url-shortener-backend:latest -f docker/backend.Dockerfile .
 
 # Build only the frontend image
-docker build -t b1shortener-frontend:latest -f docker/frontend.Dockerfile .
+docker build -t url-shortener-frontend:latest -f docker/frontend.Dockerfile .
 ```
 
 ### Running the stack with Docker Compose
@@ -68,10 +94,10 @@ You can override any of the environment variables in `.env` or the compose file 
 
 ## Usage
 
-- Access the admin UI at `http://localhost/admin`.
+- Access the admin UI at `http://localhost/admin` (or the frontend url specified in `.env`).
 - Log in as an admin user (by default you may need to create one via a seeding script or API).
-- Create short URLs under `/admin/short-urls`.
-- Visiting `http://localhost/\<code\>` will trigger the 302 redirect.
+- Create short URLs under `/admin/`.
+- Visiting `http://localhost/{code}` will trigger the 302 redirect.
 
 ## Cleaning Up
 
@@ -82,4 +108,4 @@ docker compose down -v
 
 ## Contributing
 
-See `CONTRIBUTING.md` for guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
