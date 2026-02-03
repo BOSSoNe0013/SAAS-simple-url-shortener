@@ -88,7 +88,7 @@ const useAPI = () => {
   }
   async function getRedirectURL(code: string): Promise<string | undefined> {
     try {
-      const resp = await api.get(`/${code}`);
+      const resp = await api.get(`/tg/${code}`);
       if (resp.status === 200) return resp.data;
     } catch (error) {
       console.error("Error:", error);
