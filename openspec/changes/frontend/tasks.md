@@ -28,28 +28,33 @@
 
 ## 5. Account management
 
-- [ ] `AccountSettings.vue` component for password change.
-- [ ] Validation and API call to `/admin/account`.
+- [x] `AccountSettings.vue` component for password change.
+- [x] Validation and API call to `/admin/account`.
 
 ## 6. Pages assembly
 
 - [x] `/pages/admin/dashboard.vue` dashboard.
 - [x] `/pages/admin/short-url.vue` page.
 - [ ] `/pages/admin/short-urls.vue` page.
-- [ ] `/admin/account.vue` page.
+- [x] `/admin/account.vue` page.
 
-## 7. Styling & UX
+## 7. Short code redirection
 
-- [ ] Use NuxtUI components consistently.
-- [ ] Tailwind responsive layout.
-- [ ] Toast notifications for success/error.
+- [x] Request to `/<CODE>` must check if short code exist, retrieve target URL then redirect.
+- [ ] Redirect to target page using `302` HTTP code.
 
-## 8. Testing
+## 8. Styling & UX
+
+- [x] Use NuxtUI components consistently.
+- [x] Tailwind responsive layout.
+- [x] Toast notifications for success/error.
+
+## 9. Testing
 
 - [ ] Unit tests for components.
 - [ ] Integration tests for store actions.
 
-## 9. Documentation & Cleanup
+## 10. Documentation & Cleanup
 
 - [ ] Update README with frontend instructions.
 - [ ] Ensure lint passes, format code.
