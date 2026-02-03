@@ -43,7 +43,11 @@ The compiled JavaScript for the backend lives in `app/dist` while the frontend b
 
 ## Environment variables
 
+<<<<<<< HEAD
 Store environment variables in `.env` file at project root level:
+=======
+Store envoronment variables in `.env` file at project root level:
+>>>>>>> 375d67c (feat(frontend): update short URLs admin and shortcode pages)
 
 ```bash
 PORT=5601
