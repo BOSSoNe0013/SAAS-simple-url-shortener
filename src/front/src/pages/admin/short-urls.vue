@@ -2,9 +2,9 @@
 import useAPI from '../../api';
 import { TableColumn } from "@nuxt/ui";
 import type { TableMeta, Row } from '@tanstack/vue-table'
-import { ref } from "vue";
 import { ShortUrl, useShortUrlsStore } from "../../store/shortUrls";
 import ShortUrlCard from "../../components/ShortUrlCard.vue";
+import { computed, ref } from 'vue';
 
 const api = useAPI();
 const toast = useToast();
@@ -35,7 +35,7 @@ const confirmDelete = async () => {
     try {
         const res = await api.deleteShortURL(url.code);
         if(res?.data.success) {
-            const idx = store.urls.findIndex(u => {url.id === u.id});
+            const idx = store.urls.findIndex(u => url.id === u.id);
             if(idx) {
                 store.urls.splice(idx, 1);
             }
@@ -49,7 +49,7 @@ const confirmDelete = async () => {
     } finally {
         loading.value = undefined;
     }
-}
+};
 
 const columns: TableColumn<ShortUrl>[] = [
   {
@@ -122,7 +122,7 @@ const meta: TableMeta<ShortUrl> = {
 };
 
 const error = ref("");
-async function handleCopy(code: string) {
+const handleCopy = async (code: string) => {
   error.value = "";
   const shortURL = `${import.meta.env.VITE_FRONTEND_URL}/${code}`;
   try {
@@ -134,14 +134,18 @@ async function handleCopy(code: string) {
   } catch (e: any) {
     error.value = "Failed to copy";
   }
-}
+};
+
+const isLoading = computed<boolean>(() => {
+  return store.loading || typeof loading.value !== 'undefined';
+});
 </script>
 
 <template>
   <UPage>
     <UPageHeader title="Manage my short URLs" />
     <UPageBody>
-      <UTable :data="store.list" :columns="columns" class="flex-1" :loading="store.loading || typeof loading !== 'undefined'" :meta="meta" >
+      <UTable :data="store.list" :columns="columns" class="flex-1" :loading="isLoading" :meta="meta" >
         <template #code-cell="{ row }">
           <div class="flex gap-2 items-center w-24 justify-between">
             <span class="grow">{{ row.original.code }}</span>

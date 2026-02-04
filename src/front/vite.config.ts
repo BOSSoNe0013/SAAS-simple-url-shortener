@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import vueDevTools from 'vite-plugin-vue-devtools'
 import ui from '@nuxt/ui/vite';
 import devtoolsJson from 'vite-plugin-devtools-json';
 import EnvCaster from "@niku/vite-env-caster";
@@ -17,6 +18,7 @@ export default defineConfig(({mode}) => {
       vue(), 
       vueJsx(),
       ui(),
+      vueDevTools(),
       devtoolsJson({
         projectRoot: './src',
       }),
@@ -24,6 +26,11 @@ export default defineConfig(({mode}) => {
     base: "/",
     root: './src',
     envDir: '../../',
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url))
+      },
+    },
     server: {
       allowedHosts: [
         'short.b1project.com'
