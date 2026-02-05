@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
-import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
+import { SwaggerModule, DocumentBuilder, SwaggerCustomOptions } from "@nestjs/swagger";
 import { INestApplication } from "@nestjs/common";
+import { AppConfigService } from "src/config/services/config.service";
 
 @Module({ })
 export class SwaggerConfig {
@@ -13,6 +14,11 @@ export class SwaggerConfig {
       .addBearerAuth()
       .build();
     const document = SwaggerModule.createDocument(app, config);
+    const appConfig = app.get(AppConfigService);
+    const options: SwaggerCustomOptions = {
+      ui: appConfig.env === 'development',
+      raw: appConfig.env === 'development',
+    };
     SwaggerModule.setup("docs", app, document);
   }
 }
