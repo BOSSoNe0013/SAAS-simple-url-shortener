@@ -19,6 +19,6 @@ export class SwaggerConfig {
       ui: appConfig.env === 'development',
       raw: appConfig.env === 'development',
     };
-    SwaggerModule.setup("docs", app, document);
+    SwaggerModule.setup("docs", app, document, options);
   }
 }
